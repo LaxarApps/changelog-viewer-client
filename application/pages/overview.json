@@ -1,0 +1,48 @@
+{
+   "layout": "one-column",
+
+   "areas": {
+      "activities": [
+         {
+            "widget": "changelog-activity",
+            "features": {
+               "server": {
+                  "url": "http://localhost:8007/api"
+               },
+               "categories": {
+                  "resource": "categories"
+               },
+               "releases": {
+                  "action": "getReleases"
+               },
+               "changelog": {
+                  "action": "getChangelog"
+               }
+            }
+         }
+      ],
+
+      "content": [
+         {
+            "widget": "changelog-widget",
+            "features": {
+               "categories": {
+                  "resource": "categories"
+               },
+               "releases": {
+                  "action": "getReleases"
+               },
+               "changelog": {
+                  "action": "getChangelog"
+               }
+            }
+         }
+      ],
+
+      "footer": [
+         {
+            "widget": "amd:laxar-developer-tools-widget"
+         }
+      ]
+   }
+}

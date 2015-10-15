@@ -1,0 +1,17 @@
+{
+  "name": "changelog-viewer-client",
+  "version": "0.1.0-pre",
+  "description": "",
+  "license": "MIT",
+  "dependencies": {
+    "laxar": "~1.1.0-beta.0",
+    "laxar-uikit": "~1.1.0",
+    "laxar-patterns": "~1.1.0-alpha.2",
+    "marked": "chjj/marked#^0.3.x"
+  },
+  "devDependencies": {
+    "jasmine": "2.3.x",
+    "jasmine": "1.3.x",
+    "laxar-mocks": "~0.5.0"
+  }
+}

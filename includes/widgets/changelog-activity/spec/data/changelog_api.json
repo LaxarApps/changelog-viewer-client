@@ -1,0 +1,209 @@
+[
+   {
+      "_links": {
+         "self": {
+            "href": "/api"
+         },
+         "categories": {
+            "href": "/categories"
+         }
+      }
+   },
+   {
+      "_links": {
+         "self": {
+            "href": "/categories"
+         },
+         "category": [
+            {
+               "href": "/categories/frontend"
+            },
+            {
+               "href": "/categories/backend"
+            }
+         ]
+      },
+      "_embedded": {
+         "category": [
+            {
+               "_links": {
+                  "self": {
+                     "href": "/categories/frontend"
+                  },
+                  "repositories": {
+                     "href": "/categories/frontend/repositories"
+                  }
+               },
+               "_embedded": {
+                  "repositories": {
+                     "_links": {
+                        "self": {
+                           "href": "/categories/frontend/repositories"
+                        },
+                        "repository": [
+                           {
+                              "_links": {
+                                 "self": {
+                                    "href": "/repositories/0"
+                                 }
+                              }
+                           },
+                           {
+                              "_links": {
+                                 "self": {
+                                    "href": "/repositories/1"
+                                 }
+                              }
+                           }
+                        ]
+                     },
+                     "_embedded": {
+                        "repository": [
+                           {
+                              "_links": {
+                                 "self": {
+                                    "href": "/repositories/0"
+                                 },
+                                 "releases": {
+                                    "href": "/repositories/0/releases"
+                                 }
+                              },
+                              "title": "ax-headline-widget",
+                              "pushedAt": "2015-06-05T09:42:11Z"
+                           },
+                           {
+                              "_links": {
+                                 "self": {
+                                    "href": "/repositories/1"
+                                 },
+                                 "releases": {
+                                    "href": "/repositories/1/releases"
+                                 }
+                              },
+                              "title": "ax-other-headline-widget",
+                              "pushedAt": "2015-06-02T09:42:11Z"
+                           }
+                        ]
+                     }
+                  }
+               },
+               "title": "Frontend"
+            },
+            {
+               "_links": {
+                  "self": {
+                     "href": "/categories/Backend"
+                  },
+                  "repositories": {
+                     "href": "/categories/Backend/repositories"
+                  }
+               },
+               "_embedded": {
+                  "repositories": {
+                     "_links": {
+                        "self": {
+                           "href": "/categories/Backend/repositories"
+                        },
+                        "repository": [
+                           {
+                              "_links": {
+                                 "self": {
+                                    "href": "/repositories/3"
+                                 }
+                              }
+                           },
+                           {
+                              "_links": {
+                                 "self": {
+                                    "href": "/repositories/4"
+                                 }
+                              }
+                           }
+                        ]
+                     },
+                     "_embedded": {
+                        "repository": [
+                           {
+                              "_links": {
+                                 "self": {
+                                    "href": "/repositories/3"
+                                 },
+                                 "releases": {
+                                    "href": "/repositories/3/releases"
+                                 }
+                              },
+                              "title": "service",
+                              "pushedAt": "2015-06-05T09:42:11Z"
+                           },
+                           {
+                              "_links": {
+                                 "self": {
+                                    "href": "/repositories/4"
+                                 },
+                                 "releases": {
+                                    "href": "/repositories/4/releases"
+                                 }
+                              },
+                              "title": "other-service",
+                              "pushedAt": "2015-06-02T09:42:11Z"
+                           }
+                        ]
+                     }
+                  }
+               },
+               "title": "Backend"
+            }
+         ]
+      }
+   },
+   {
+      "_links": {
+         "self": {
+            "href": "/repositories/0/releases"
+         },
+         "release": [
+            {
+               "href": "/repositories/0/releases/master",
+               "title": "master"
+            },
+            {
+               "href": "/repositories/0/releases/master-2.x",
+               "title": "master 2.x"
+            },
+            {
+               "href": "/repositories/0/releases/2.0.x",
+               "title": "v2.0.x"
+            },
+            {
+               "href": "/repositories/0/releases/3.0.x",
+               "title": "v3.0.x"
+            }
+         ]
+      }
+   },
+   {
+      "_links": {
+         "self": {
+            "href": "/repositories/1/releases"
+         },
+         "release": [
+            {
+               "href": "/repositories/1/releases/master",
+               "title": "master"
+            },
+            {
+               "href": "/repositories/1/releases/master-1.x",
+               "title": "master 1.x"
+            },
+            {
+               "href": "/repositories/1/releases/1.0.x",
+               "title": "v1.0.x"
+            },
+            {
+               "href": "/repositories/1/releases/2.0.x",
+               "title": "v2.0.x"
+            }
+         ]
+      }
+   }
+]

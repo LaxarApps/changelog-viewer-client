@@ -1,0 +1,5 @@
+.one-column-layout,
+.one-column-layout > * {
+   position: relative;
+   margin: 20px;
+}

@@ -1,0 +1,47 @@
+{
+   "name": "changelog-widget",
+   "description": "Display a list of repositories with changelogs",
+   "integration": {
+      "technology": "angular",
+      "type": "widget"
+   },
+   "features": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "properties": {
+         "categories": {
+            "type": "object",
+            "description": "A resource with repositories grouped in categories",
+            "properties": {
+               "resource": {
+                  "type": "string",
+                  "description": "Name of the data resource with categories.",
+                  "format": "topic"
+               }
+            }
+         },
+         "releases": {
+            "type": "object",
+            "description": "Request a list of releases of a specific repository",
+            "properties": {
+               "action": {
+                  "type": "string",
+                  "description": "Name of the action to request the releases",
+                  "format": "topic"
+               }
+            }
+         },
+         "changelog": {
+            "type": "object",
+            "description": "Request a changelog in markdown of a specific release",
+            "properties": {
+               "action": {
+                  "type": "string",
+                  "description": "Name of the action to request a changelog",
+                  "format": "topic"
+               }
+            }
+         }
+      }
+   }
+}
