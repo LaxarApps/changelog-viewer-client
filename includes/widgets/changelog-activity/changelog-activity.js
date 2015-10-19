@@ -183,7 +183,6 @@ define( [
          };
 
          $scope.model.categories = [];
-
          return hal.get( LOCATION )
             .on( {
                '200': hal.thenFollow( relations.CATEGORIES )
@@ -210,6 +209,7 @@ define( [
                halRepresentations.repositories = {};
                var promises = [];
                halRepresentations.category.forEach( function( category ) {
+
                   promises.push( getRepositories( category.data ) );
                } );
 
@@ -234,7 +234,6 @@ define( [
                var promises = [];
                halRepresentations.category.forEach( function( category ) {
                   promises.push( getRepository( category.data.id, halRepresentations.repositories[ category.data.id ] ) );
-
                } );
 
                return $q.all( promises ).then( function( repositories ) {

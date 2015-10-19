@@ -1,5 +1,42 @@
 [
-   {
-      "nothing": null
-   }
+   [
+      {
+         "title": "Frontend",
+         "repositories": [
+            {
+               "releases": {
+                  "href": "/repositories/0/releases"
+               },
+               "title": "ax-headline-widget",
+               "pushedAt": "2015-06-05T09:42:11Z"
+            },
+            {
+               "releases": {
+                  "href": "/repositories/1/releases"
+               },
+               "title": "ax-other-headline-widget",
+               "pushedAt": "2015-06-02T09:42:11Z"
+            }
+         ]
+      },
+      {
+         "title": "Backend",
+         "repositories": [
+            {
+               "releases": {
+                  "href": "/repositories/3/releases"
+               },
+               "title": "service",
+               "pushedAt": "2015-06-05T09:42:11Z"
+            },
+            {
+               "releases": {
+                  "href": "/repositories/4/releases"
+               },
+               "title": "other-service",
+               "pushedAt": "2015-06-02T09:42:11Z"
+            }
+         ]
+      }
+   ]
 ]
