@@ -1,9 +1,13 @@
-{
-   "_links": {
-      "self": {
-         "href": "/repositories/0/releases/master-2.x"
-      }
-   },
-   "title": "master-2.x",
-   "changelog": "# Changelog\n\n   ## Last Changes\n\n   - [#2](https://github.cm/LaxarJS/ax-headline-widget/issues/2): Documentation: Fixed layout in section \"Integration\"\n   - [#1](https://github.com/LaxarJS/ax-headline-widget/issues/1): Documentation: Fixed anchor link to the section \"Integration\"\n\n\n   ## v2.0.0\n\n   Initial OSS version.\n   "
-}
+[ 'didUpdate.categories',
+   Object({ resource: 'categories', patches: [
+   Object({ op: 'add', path: '/0/repositories/1/releases/data', value:
+   Object({ title: 'master', href: '/repositories/1/releases/master' }) }),
+   Object({ title: 'master 1.x', href: '/repositories/1/releases/master-1.x' }),
+   Object({ title: 'v1.0.x', href: '/repositories/1/releases/1.0.x' }),
+   Object({ title: 'v2.0.x', href: '/repositories/1/releases/2.0.x' }) ] }) ]
+
+but actual calls were
+[ 'didUpdate.categories',
+Object({ resource: 'categories', patches: [
+Object({ op: 'add', path: '/0/repositories/1/releases/data', value: [
+Object({ title: 'master', href: '/repositories/1/releases/master' }), Object({ title: 'master 1.x', href: '/repositories/1/releases/master-1.x' }), Object({ title: 'v1.0.x', href: '/repositories/1/releases/1.0.x' }), Object({ title: 'v2.0.x', href: '/repositories/1/releases/2.0.x' }) ] }) ] }) ], [ 'didTakeAction.getReleases', Object({ action: 'getReleases' }) ].

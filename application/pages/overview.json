@@ -7,7 +7,7 @@
             "widget": "changelog-activity",
             "features": {
                "server": {
-                  "url": "http://localhost:8007/api"
+                  "url": "http://jsc:8007/api"
                },
                "categories": {
                   "resource": "categories"
@@ -37,12 +37,7 @@
                }
             }
          }
-      ],
-
-      "footer": [
-         {
-            "widget": "amd:laxar-developer-tools-widget"
-         }
       ]
+
    }
 }

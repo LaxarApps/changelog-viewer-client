@@ -37,7 +37,7 @@ module.exports = function( grunt ) {
             proxies: [
                {
                   context: '/api',
-                  host: 'localhost',
+                  host: 'jsc',
                   port: 9000,
                   rewrite: {
                      '^/api': '/'
@@ -45,12 +45,12 @@ module.exports = function( grunt ) {
                },
                {
                   context: '/categories',
-                  host: 'localhost',
+                  host: 'jsc',
                   port: 9000
                },
                {
                   context: '/repositories',
-                  host: 'localhost',
+                  host: 'jsc',
                   port: 9000
                }
             ]

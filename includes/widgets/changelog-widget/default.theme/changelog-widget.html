@@ -1,29 +1,29 @@
 <h1>AS3.1</h1>
 <ul data-ng-repeat="( categoryIndex, category) in model.categories">
-   <li>{{category.title}}
-      <button type="button"
+   <li><button type="button"
       class="btn btn-link"
       data-ng-click="showCategory( categoryIndex )"
          ><i data-ng-class="{ 'fa fa-plus-square': !model.visibleMap.categories[ categoryIndex ],
          'fa fa-minus-square': model.visibleMap.categories[ categoryIndex ] }" ></i></button>
+      {{category.title}}
    </li>
    <ul data-ng-show="model.visibleMap.categories[ categoryIndex ]"
        data-ng-repeat="( repositoryIndex, repository) in category.repositories">
-      <li>{{repository.title}}
-         <button type="button"
+      <li><button type="button"
                  class="btn btn-link"
                  data-ng-click="expand( repository.releases.href )"
             ><i data-ng-class="{ 'fa fa-plus-square': !model.visibleMap.repositories[ repository.releases.href ],
             'fa fa-minus-square': model.visibleMap.repositories[ repository.releases.href ] }" ></i></button>
+         {{repository.title}}
       </li>
       <ul data-ng-show="model.visibleMap.repositories[ repository.releases.href ]"
           data-ng-repeat="( releaseIndex, release) in repository.releases.data">
-         <li>{{release.title}}
-            <button type="button"
+         <li><button type="button"
                     class="btn btn-link"
                     data-ng-click="changelog( release.href )"
             ><i data-ng-class="{ 'fa fa-plus-square': !model.visibleMap.releases[ release.href ],
        'fa fa-minus-square': model.visibleMap.releases[ release.href ] }"></i></button>
+            {{release.title}}
             <div data-ng-show="model.visibleMap.releases[ release.href ]"
                  data-ng-bind-html="release.changelog"></div>
          </li>
