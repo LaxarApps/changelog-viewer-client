@@ -1,9 +1,0 @@
-{
-   "_links": {
-      "self": {
-         "href": "/repositories/1/releases/master"
-      }
-   },
-   "title": "master",
-   "changelog": "# Changelog\n\n   ## Last Changes\n\n\n   ## v3.2.0\n\n   - [#6](https://github.com/LaxarJS/ax-headline-widget/issues/6): Support AMD references (and installation through bower)\n   - [#7](https://github.com/LaxarJS/ax-headline-widget/issues/7): Added a `.travis.yml` for open continuous integration\n   - [#5](https://github.com/LaxarJS/ax-headline-widget/issues/5): Fixed license copyright holder\n\n\n   ## v3.1.0\n\n   - [#4](https://github.com/LaxarJS/ax-headline-widget/issues/4): Updated LaxarJS dependencies and updated contribution information\n\n\n   ## v3.0.0\n\n   - [#3](https://github.com/LaxarJS/ax-headline-widget/issues/3): Updated to LaxarJS 1.0.0 style controls\n   + **BREAKING CHANGE:** see ticket for details\n   - [#2](https://github.com/LaxarJS/ax-headline-widget/issues/2): Documentation: Fixed layout in section \"Integration\"\n   - [#1](https://github.com/LaxarJS/ax-headline-widget/issues/1): Documentation: Fixed anchor link to the section \"Integration\"\n\n\n   ## v2.0.0\n\n   Initial OSS version.\n"
-}
