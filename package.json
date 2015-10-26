@@ -11,7 +11,9 @@
       "optimize": "grunt optimize"
    },
    "devDependencies": {
+      "bower": "^1.6.5",
       "grunt": "~0.4.4",
+      "grunt-cli": "^0.1.13",
       "grunt-connect-proxy": "^0.2.0",
       "grunt-laxar": "~1.1.0-alpha.4"
    }

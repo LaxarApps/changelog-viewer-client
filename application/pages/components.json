@@ -1,0 +1,29 @@
+{
+   "layout": "one-column",
+
+   "areas": {
+      "activities": [
+         {
+            "widget": "components-activity",
+            "features": {
+               "components": {
+                  "url": "/var/dummy-components.json",
+                  "resource": "components"
+               }
+            }
+         }
+      ],
+
+      "content": [
+         {
+            "widget": "components-widget",
+            "features": {
+               "components": {
+                  "resource": "components"
+               }
+            }
+         }
+      ]
+
+   }
+}

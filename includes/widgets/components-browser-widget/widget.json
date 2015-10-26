@@ -1,0 +1,41 @@
+{
+   "name": "components-browser-widget",
+   "description": "Lists available components, and allows to access their documentation or changelog",
+
+   "integration": {
+      "technology": "angular",
+      "type": "widget"
+   },
+
+   "features": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "properties": {
+         "components": {
+            "type": "object",
+            "properties": {
+               "resource": {
+                  "type": "string",
+                  "description": "Resource under which to expect the components list",
+                  "format": "topic"
+               }
+            }
+         },
+         "related": {
+            "type": "object",
+            "properties": {
+               "action": {
+                  "type": "string",
+                  "description": "Action to trigger after publishing related information",
+                  "format": "topic"
+               },
+               "resource": {
+                  "type": "string",
+                  "description": "Resource under which to publish related information",
+                  "format": "topic"
+               }
+            }
+         }
+      }
+   }
+}

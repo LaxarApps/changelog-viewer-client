@@ -1,0 +1,14 @@
+{
+   "name": "components-activity",
+   "version": "0.1.0-pre",
+   "description": "Provides a grouped list of software components, with references to their documentation and changelogs",
+   "license": "MIT",
+   "authors": [ "aixigo AG" ],
+   "dependencies": {
+      "laxar": "~1.1.0"
+   },
+   "devDependencies": {
+      "laxar-mocks": ""
+   }
+}
+

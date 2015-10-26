@@ -7,3 +7,4 @@ atlassian-ide-plugin.xml
 /bower_components
 *.backup.json
 changelog-viewer-client-*.zip
+/npm-debug.log

@@ -1,0 +1,26 @@
+{
+   "name": "components-activity",
+   "description": "Provides a grouped list of software components, with references to their documentation and changelogs",
+
+   "integration": {
+      "technology": "plain",
+      "type": "activity"
+   },
+
+   "features": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "properties": {
+         "components": {
+            "type": "object",
+            "properties": {
+               "resource": {
+                  "type": "string",
+                  "description": "Resource under which to publish the components list",
+                  "format": "topic"
+               }
+            }
+         }
+      }
+   }
+}

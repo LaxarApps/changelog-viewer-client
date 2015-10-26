@@ -1,0 +1,14 @@
+{
+   "name": "components-browser-widget",
+   "version": "0.1.0-pre",
+   "description": "Lists available components, and allows to display their documentation or changelog",
+   "license": "MIT",
+   "authors": [ "aixigo AG" ],
+   "dependencies": {
+      "laxar": "~1.1.0",
+      "laxar-uikit": "~1.1.0"
+   },
+   "devDependencies": {
+      "laxar-mocks": ""
+   }
+}

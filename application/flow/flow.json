@@ -6,6 +6,10 @@
 
       "overview": {
          "page":  "overview"
+      },
+
+      "components": {
+         "page":  "components"
       }
    }
 }
