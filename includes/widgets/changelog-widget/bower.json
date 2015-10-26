@@ -8,7 +8,8 @@
       "laxar": "~1.1.0-alpha.6",
       "laxar-uikit": "~1.1.0",
       "laxar-patterns": "~1.1.0-alpha.1",
-      "marked": "chjj/marked#^0.3.x"
+      "marked": "chjj/marked#^0.3.x",
+      "semver": "~4.3.4"
    },
    "devDependencies": {
       "jasmine": "1.3.x"

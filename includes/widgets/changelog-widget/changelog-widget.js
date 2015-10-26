@@ -1,14 +1,15 @@
 /**
- * Copyright 2015 LaxarJS
- * Released under the MIT license
- * http://www.laxarjs.org
+ * Copyright 2015 aixigo AG
+ * Released under the MIT license.
+ * http://laxarjs.org/license
  */
 define( [
    'angular',
    'laxar',
    'laxar-patterns',
-   'marked/lib/marked'
-], function( ng, ax, patterns, marked ) {
+   'marked/lib/marked',
+   'semver'
+], function( ng, ax, patterns, marked, semver ) {
    'use strict';
 
    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -17,6 +18,9 @@ define( [
 
    function Controller( $scope, $sce ) {
       var defaultRenderer = new marked.Renderer();
+      var renderer = new marked.Renderer();
+      renderer.link = renderLink;
+
       $scope.model = {};
       $scope.resources = {};
       var model = $scope.model;
@@ -90,8 +94,10 @@ define( [
          model.categories.forEach( function( category ) {
             category.repositories.forEach( function( repository ) {
                if( Array.isArray( repository.releases.data ) ) {
+                  repository.releases.data = repository.releases.data.sort( sortByVersion );
                   repository.releases.data.forEach( function( release ) {
                      if( release.changelog ) {
+                        release.changelog = filterChapter( release );
                         release.changelog = markdownToHtml( release.changelog );
                      }
                   } );
@@ -102,12 +108,79 @@ define( [
 
       ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+      function sortByVersion( a, b) {
+         var firstVersion = a.title.substr( 0, a.title.length - 1) + '0';
+         var secondVersion = b.title.substr( 0, b.title.length - 1) + '0';
+         return semver.compare( firstVersion, secondVersion ) * (-1);
+      }
+
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+      function filterChapter( release ) {
+         if( !testTitle( release.title ) ) {
+            return release.changelog;
+         }
+         var validVersion = release.title.substr( 0, release.title.length - 1) + '0';
+         var majorVersion = semver.major( validVersion );
+         var minorVersion = semver.minor( validVersion );
+         var versionHeadline = new RegExp( '##\\sv' + majorVersion + '.' + minorVersion );
+
+         var changelog = release.changelog;
+         var startPosition = changelog.search( versionHeadline );
+
+         if( startPosition === -1 ) {
+            return changelog;
+         }
+         var endPosition = determineEndposition( majorVersion, minorVersion, changelog );
+         return changelog.substr( startPosition, endPosition - startPosition);
+      }
+
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+      function testTitle( title ) {
+         var expectedTitleFormat = /\d+\.\d+\.[x]/;
+         return expectedTitleFormat.test( title );
+      }
+
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+      function determineEndposition( majorVersion, minorVersion, changelog ) {
+         var previousVersionHeadline;
+         var minor = minorVersion - 1;
+         if( minor === -1 ) {
+            var major = majorVersion - 1;
+            previousVersionHeadline = new RegExp( '##\\sv' + major + '.' + '\\d+' );
+         }
+         else {
+            previousVersionHeadline = new RegExp( '##\\sv' + majorVersion + '.' + minor );
+         }
+         var endPosition = changelog.search( previousVersionHeadline );
+         if( endPosition === -1 ) {
+            return changelog.length;
+         }
+         return endPosition;
+      }
+
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
       function markdownToHtml( mdText ) {
          return $sce.trustAsHtml( marked( mdText, {
-            renderer: defaultRenderer,
+            renderer: renderer,
             sanitize: true,
             headerPrefix: $scope.id( '' )
          } ) );
+      }
+
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+      function renderLink( href, title, text ) {
+         var html = '<a href="' + href + '"';
+         if( title ) {
+            html += ' title="' + title + '"';
+         }
+         html += 'target="_blank">' + text + '</a>';
+         return html;
       }
    }
 

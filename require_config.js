@@ -44,7 +44,8 @@ var require = {
       'promise-polyfill': 'promise-polyfill/Promise',
 
       // changelog-widget
-      marked: 'marked'
+      marked: 'marked',
+      semver: 'semver/semver.browser'
    },
    packages: [
       {

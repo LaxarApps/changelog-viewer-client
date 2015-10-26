@@ -1,7 +1,7 @@
 /**
- * Copyright 2015 LaxarJS
- * Released under the MIT license
- * http://www.laxarjs.org
+ * Copyright 2015 aixigo AG
+ * Released under the MIT license.
+ * http://laxarjs.org/license
  */
 define( [
    'angular',
@@ -300,6 +300,7 @@ define( [
                   repositories: repositories
                };
             } );
+
          }
       }
    }
