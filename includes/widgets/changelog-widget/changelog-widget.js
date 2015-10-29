@@ -31,8 +31,7 @@ define( [
          releases: {}
       };
       model.requestedDataMap = {
-         repositories: {},
-         releases: {}
+         repositories: {}
       };
 
       patterns.resources.handlerFor( $scope )
@@ -46,14 +45,13 @@ define( [
       $scope.showCategory = function( categoryIndex ) {
          model.visibleMap.categories[ categoryIndex ]  = !model.visibleMap.categories[ categoryIndex ];
       };
-
       ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-      $scope.expand = function( href ) {
+      $scope.showRepository = function( href ) {
          model.visibleMap.repositories[ href ] = !model.visibleMap.repositories[ href ];
          if( model.visibleMap.repositories[ href ] && !model.requestedDataMap.repositories[ href ] ) {
-            $scope.eventBus.publish( 'takeActionRequest.' + $scope.features.releases.action, {
-               action: $scope.features.releases.action,
+            $scope.eventBus.publish( 'takeActionRequest.' + $scope.features.changelog.action, {
+               action: $scope.features.changelog.action,
                repository: { href: href }
             } );
             model.requestedDataMap.repositories[ href ] = true;
@@ -64,13 +62,6 @@ define( [
 
       $scope.changelog = function( href ) {
          model.visibleMap.releases[ href ] = !model.visibleMap.releases[ href ];
-         if( model.visibleMap.releases[ href ] && !model.requestedDataMap.releases[ href ] ) {
-            $scope.eventBus.publish( 'takeActionRequest.' + $scope.features.changelog.action, {
-               action: $scope.features.changelog.action,
-               release: { href: href }
-            } );
-            model.requestedDataMap.releases[ href ] = true;
-         }
       };
 
       ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -93,14 +84,18 @@ define( [
          model.categories = ax.object.deepClone( $scope.resources.categories );
          model.categories.forEach( function( category ) {
             category.repositories.forEach( function( repository ) {
-               if( Array.isArray( repository.releases.data ) ) {
-                  repository.releases.data = repository.releases.data.sort( sortByVersion );
-                  repository.releases.data.forEach( function( release ) {
-                     if( release.changelog ) {
-                        release.changelog = filterChapter( release );
-                        release.changelog = markdownToHtml( release.changelog );
-                     }
-                  } );
+               if( Array.isArray( repository.releases ) ) {
+                  repository.releases = repository.releases.sort( sortByVersion );
+                  repository.lastVersion = getLastVersion( repository.releases[ 0 ] );
+                  if( Array.isArray( repository.releases ) ) {
+                     repository.releases.forEach( function( release ) {
+                        if( !release ) { return; }
+                        if( release.changelog ) {
+                           release.changelog = filterChapter( release );
+                           release.changelog = markdownToHtml( release.changelog );
+                        }
+                     } );
+                  }
                }
             } );
          } );
@@ -112,6 +107,13 @@ define( [
          var firstVersion = a.title.substr( 0, a.title.length - 1) + '0';
          var secondVersion = b.title.substr( 0, b.title.length - 1) + '0';
          return semver.compare( firstVersion, secondVersion ) * (-1);
+      }
+
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+      function getLastVersion( release ) {
+         if( !release ) { return; }
+         return release.title;
       }
 
       ////////////////////////////////////////////////////////////////////////////////////////////////////////

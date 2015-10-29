@@ -20,9 +20,6 @@ define( [
             'categories': {
                'resource': 'categories'
             },
-            'releases': {
-               'action': 'getReleases'
-            },
             'changelog': {
                'action': 'getChangelog'
             }
@@ -60,10 +57,10 @@ define( [
          it( 'requests a list with releases by publishing a takeActionRequest', function() {
             var href = 'localhost/repository';
 
-            axMocks.widget.$scope.expand( href );
+            axMocks.widget.$scope.showRepository( href );
             expect( axMocks.widget.$scope.eventBus.publish )
-               .toHaveBeenCalledWith( 'takeActionRequest.getReleases', {
-                  action: 'getReleases',
+               .toHaveBeenCalledWith( 'takeActionRequest.getChangelog', {
+                  action: 'getChangelog',
                   repository: {
                      href: href
                   }
@@ -72,24 +69,6 @@ define( [
 
       } );
 
-      ////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-      describe( 'with feature "changelog"', function() {
-
-         it( 'requests the changelog of a release by publishing a takeActionRequest', function() {
-            var href = 'localhost/repositories/release';
-
-            axMocks.widget.$scope.changelog( href );
-            expect( axMocks.widget.$scope.eventBus.publish )
-               .toHaveBeenCalledWith( 'takeActionRequest.getChangelog', {
-                  action: 'getChangelog',
-                  release: {
-                     href: href
-                  }
-               } );
-         } );
-
-      } );
 
       afterEach( axMocks.tearDown );
 

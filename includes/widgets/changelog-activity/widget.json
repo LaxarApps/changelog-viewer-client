@@ -28,14 +28,6 @@
                }
             }
          },
-         "releases": {
-            "type": "object",
-            "properties": {
-               "action": {
-                  "type": "string"
-               }
-            }
-         },
          "changelog": {
             "type": "object",
             "properties": {

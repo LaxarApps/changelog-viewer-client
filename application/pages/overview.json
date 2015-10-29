@@ -12,9 +12,6 @@
                "categories": {
                   "resource": "categories"
                },
-               "releases": {
-                  "action": "getReleases"
-               },
                "changelog": {
                   "action": "getChangelog"
                }
@@ -28,9 +25,6 @@
             "features": {
                "categories": {
                   "resource": "categories"
-               },
-               "releases": {
-                  "action": "getReleases"
                },
                "changelog": {
                   "action": "getChangelog"

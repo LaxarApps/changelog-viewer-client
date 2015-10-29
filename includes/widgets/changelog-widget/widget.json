@@ -20,20 +20,9 @@
                }
             }
          },
-         "releases": {
-            "type": "object",
-            "description": "Request a list of releases of a specific repository",
-            "properties": {
-               "action": {
-                  "type": "string",
-                  "description": "Name of the action to request the releases",
-                  "format": "topic"
-               }
-            }
-         },
          "changelog": {
             "type": "object",
-            "description": "Request a changelog in markdown of a specific release",
+            "description": "Request the changelogs in markdown of all releases of a repository",
             "properties": {
                "action": {
                   "type": "string",
