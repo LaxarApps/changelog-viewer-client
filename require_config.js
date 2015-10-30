@@ -45,7 +45,8 @@ var require = {
 
       // changelog-widget
       marked: 'marked',
-      semver: 'semver/semver.browser'
+      semver: 'semver/semver.browser',
+      'iframe-resizer': 'iframe-resizer/js/iframeResizer.contentWindow.min'
    },
    packages: [
       {

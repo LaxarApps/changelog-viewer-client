@@ -8,7 +8,8 @@
     "laxar-uikit": "~1.1.0",
     "laxar-patterns": "~1.1.0-alpha.2",
     "marked": "chjj/marked#^0.3.x",
-    "semver": "~4.3.4"
+    "semver": "~4.3.4",
+    "iframe-resizer": "3.5.0"
   },
   "devDependencies": {
     "jasmine": "2.3.x",

@@ -8,7 +8,8 @@ define( [
    'laxar',
    'laxar-patterns',
    'marked/lib/marked',
-   'semver'
+   'semver',
+   'iframe-resizer'
 ], function( ng, ax, patterns, marked, semver ) {
    'use strict';
 
