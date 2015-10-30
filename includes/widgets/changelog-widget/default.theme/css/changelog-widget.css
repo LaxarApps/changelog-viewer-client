@@ -4,7 +4,46 @@
  * http://laxarjs.org/license
  */
 @charset "UTF-8";
+@import url(https://fonts.googleapis.com/css?family=Days+One);
+@import url(https://fonts.googleapis.com/css?family=Michroma);
 
 .changelog-widget li {
    list-style-type: none;
+   background-color: #ddd;
+}
+.changelog-widget button {
+   font-family: Michroma, sans-serif;
+   color: #6b8db0;
+   margin: 3px;
+}
+
+.changelog-widget button:hover {
+   color: #6b8db0;
+   text-decoration: none;
+}
+
+.changelog-widget button:visited {
+   color: #6b8db0;
+   text-decoration: none;
+}
+
+.changelog-widget button:focus {
+   color: #6b8db0;
+   text-decoration: none;
+}
+
+.changelog-widget ul {
+   padding-inline-start: 10px;
+   -moz-padding-start: 10px;
+   -webkit-padding-start: 10px;
+}
+
+.changelog-widget li div {
+   background-color: #F3F3F3;
+   padding-top: 20px;
+   padding-bottom: 20px;
+}
+
+.changelog-widget li div li {
+   background-color: #F3F3F3;
 }
