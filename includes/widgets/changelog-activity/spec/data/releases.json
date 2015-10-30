@@ -1,5 +1,5 @@
-[
-   {
+{
+   "/repositories/0/releases/2.0.x": {
       "_links": {
          "self": {
             "href": "/repositories/0/releases/2.0.x"
@@ -8,7 +8,7 @@
       "title": "v2.0.x",
       "changelog": "# Changelog\n\n   ## Last Changes\n\n\n   ## v2.0.2\n"
    },
-   {
+   "/repositories/0/releases/3.0.x": {
       "_links": {
          "self": {
             "href": "/repositories/0/releases/3.0.x"
@@ -17,7 +17,7 @@
       "title": "v3.0.x",
       "changelog": "# Changelog\n\n   ## Last Changes\n\n\n   ## v3.0.0\n"
    },
-   {
+   "/repositories/0/releases/master": {
       "_links": {
          "self": {
             "href": "/repositories/0/releases/master"
@@ -26,7 +26,7 @@
       "title": "master",
       "changelog": "# Changelog\n\n   ## Last Changes\n\n\n   \n"
    },
-   {
+   "/repositories/0/releases/master-2.x": {
       "_links": {
          "self": {
             "href": "/repositories/0/releases/master-2.x"
@@ -35,7 +35,7 @@
       "title": "master-2.x",
       "changelog": "# Changelog\n\n   ## Last Changes\n"
    },
-   {
+   "/repositories/1/releases/2.0.x": {
       "_links": {
          "self": {
             "href": "/repositories/1/releases/2.0.x"
@@ -44,7 +44,7 @@
       "title": "v2.0.x",
       "changelog": "# Changelog\n\n   ## Last Changes\n\n\n   ## v2.0.2\n"
    },
-   {
+   "/repositories/1/releases/3.0.x": {
       "_links": {
          "self": {
             "href": "/repositories/1/releases/3.0.x"
@@ -53,7 +53,7 @@
       "title": "v3.0.x",
       "changelog": "# Changelog\n\n   ## Last Changes\n\n\n   ## v3.0.0\n"
    },
-   {
+   "/repositories/1/releases/master": {
       "_links": {
          "self": {
             "href": "/repositories/1/releases/master"
@@ -62,7 +62,7 @@
       "title": "master",
       "changelog": "# Changelog\n\n   ## Last Changes\n\n\n   ## v3.2.0\n"
    },
-   {
+   "/repositories/1/releases/master-2.x": {
       "_links": {
          "self": {
             "href": "/repositories/1/releases/master-2.x"
@@ -71,4 +71,4 @@
       "title": "master-2.x",
       "changelog": "# Changelog\n\n   ## Last Changes\n"
    }
-]
+}

@@ -172,12 +172,12 @@
                "title": "master"
             },
             {
-               "href": "/repositories/1/releases/master-1.x",
-               "title": "master 1.x"
+               "href": "/repositories/1/releases/master-2.x",
+               "title": "master 2.x"
             },
             {
-               "href": "/repositories/1/releases/1.0.x",
-               "title": "v1.0.x"
+               "href": "/repositories/1/releases/3.0.x",
+               "title": "v3.0.x"
             },
             {
                "href": "/repositories/1/releases/2.0.x",

@@ -4,18 +4,68 @@
          "title": "Frontend",
          "repositories": [
             {
-               "releases": {
-                  "href": "/repositories/0/releases"
-               },
+               "releases": [
+                  {
+                     "href": "/repositories/0/releases/master",
+                     "title": "master"
+                  },
+                  {
+                     "href": "/repositories/0/releases/master-2.x",
+                     "title": "master 2.x"
+                  },
+                  {
+                     "href": "/repositories/0/releases/2.0.x",
+                     "title": "v2.0.x"
+                  },
+                  {
+                     "href": "/repositories/0/releases/3.0.x",
+                     "title": "v3.0.x"
+                  }
+               ],
                "title": "ax-headline-widget",
-               "pushedAt": "2015-06-05T09:42:11Z"
+               "pushedAt": "2015-06-05T09:42:11Z",
+               "href": {
+                  "_links": {
+                     "self": {
+                        "href": "/repositories/0"
+                     },
+                     "releases": {
+                        "href": "/repositories/0/releases"
+                     }
+                  }
+               }
             },
             {
-               "releases": {
-                  "href": "/repositories/1/releases"
-               },
+               "releases": [
+                  {
+                     "href": "/repositories/1/releases/master",
+                     "title": "master"
+                  },
+                  {
+                     "href": "/repositories/1/releases/master-2.x",
+                     "title": "master 2.x"
+                  },
+                  {
+                     "href": "/repositories/1/releases/3.0.x",
+                     "title": "v3.0.x"
+                  },
+                  {
+                     "href": "/repositories/1/releases/2.0.x",
+                     "title": "v2.0.x"
+                  }
+               ],
                "title": "ax-other-headline-widget",
-               "pushedAt": "2015-06-02T09:42:11Z"
+               "pushedAt": "2015-06-02T09:42:11Z",
+               "href": {
+                  "_links": {
+                     "self": {
+                        "href": "/repositories/1"
+                     },
+                     "releases": {
+                        "href": "/repositories/1/releases"
+                     }
+                  }
+               }
             }
          ]
       },
@@ -23,18 +73,68 @@
          "title": "Backend",
          "repositories": [
             {
-               "releases": {
-                  "href": "/repositories/3/releases"
-               },
+               "releases": [
+                  {
+                     "href": "/repositories/3/releases/master",
+                     "title": "master"
+                  },
+                  {
+                     "href": "/repositories/3/releases/master-2.x",
+                     "title": "master 2.x"
+                  },
+                  {
+                     "href": "/repositories/3/releases/2.0.x",
+                     "title": "v2.0.x"
+                  },
+                  {
+                     "href": "/repositories/3/releases/3.0.x",
+                     "title": "v3.0.x"
+                  }
+               ],
                "title": "service",
-               "pushedAt": "2015-06-05T09:42:11Z"
+               "pushedAt": "2015-06-05T09:42:11Z",
+               "href": {
+                  "_links": {
+                     "self": {
+                        "href": "/repositories/3"
+                     },
+                     "releases": {
+                        "href": "/repositories/3/releases"
+                     }
+                  }
+               }
             },
             {
-               "releases": {
-                  "href": "/repositories/4/releases"
-               },
+               "releases": [
+                  {
+                     "href": "/repositories/4/releases/master",
+                     "title": "master"
+                  },
+                  {
+                     "href": "/repositories/4/releases/master-1.x",
+                     "title": "master 1.x"
+                  },
+                  {
+                     "href": "/repositories/4/releases/1.0.x",
+                     "title": "v1.0.x"
+                  },
+                  {
+                     "href": "/repositories/4/releases/2.0.x",
+                     "title": "v2.0.x"
+                  }
+               ],
                "title": "other-service",
-               "pushedAt": "2015-06-02T09:42:11Z"
+               "pushedAt": "2015-06-02T09:42:11Z",
+               "href": {
+                  "_links": {
+                     "self": {
+                        "href": "/repositories/4"
+                     },
+                     "releases": {
+                        "href": "/repositories/4/releases"
+                     }
+                  }
+               }
             }
          ]
       }
@@ -44,25 +144,23 @@
       "patches": [
          {
             "op": "add",
-            "path": "/0/repositories/1/releases/data",
-            "value": [
-               {
-                  "title": "master",
-                  "href": "/repositories/1/releases/master"
-               },
-               {
-                  "title": "master 1.x",
-                  "href": "/repositories/1/releases/master-1.x"
-               },
-               {
-                  "title": "v1.0.x",
-                  "href": "/repositories/1/releases/1.0.x"
-               },
-               {
-                  "title": "v2.0.x",
-                  "href": "/repositories/1/releases/2.0.x"
-               }
-            ]
+            "path": "/0/repositories/1/releases/3/changelog",
+            "value": "# Changelog\n\n   ## Last Changes\n\n\n   ## v2.0.2\n"
+         },
+         {
+            "op": "add",
+            "path": "/0/repositories/1/releases/2/changelog",
+            "value": "# Changelog\n\n   ## Last Changes\n\n\n   ## v3.0.0\n"
+         },
+         {
+            "op": "add",
+            "path": "/0/repositories/1/releases/1/changelog",
+            "value": "# Changelog\n\n   ## Last Changes\n"
+         },
+         {
+            "op": "add",
+            "path": "/0/repositories/1/releases/0/changelog",
+            "value": "# Changelog\n\n   ## Last Changes\n\n\n   ## v3.2.0\n"
          }
       ]
    }

@@ -45,7 +45,7 @@ define( [
             categories.forEach( function( category ) {
                category.repositories.forEach( function( repository ) {
                   if( repository.releases ) {
-                     if(  event.repository.href === repository.href._links.releases.href ) {
+                     if( event.repository.href === repository.href._links.releases.href ) {
                         repository.releases.forEach( function( release ) {
                            promises.push( getChangelog( release.href ) );
                         } );
@@ -75,10 +75,12 @@ define( [
                } );
                var patch = patterns.json.createPatch( $scope.model.categories, categories );
                   patterns.json.applyPatch( $scope.model.categories, patch );
+               if( patch.length > 0 ) {
                   $scope.eventBus.publish( 'didUpdate.' + $scope.features.categories.resource, {
                      resource: $scope.features.categories.resource,
                      patches: patch
                   } );
+               }
             } ).then( function() {
                $scope.eventBus.publish( 'didTakeAction.' + $scope.features.changelog.action, {
                   action: $scope.features.changelog.action
@@ -167,7 +169,7 @@ define( [
                return hal.follow( halRepresentation, relations.REPOSITORIES )
                   .on( {
                      '200': function( responseRepositories ) {
-                        halRepresentations.repositories[halRepresentation.id] = responseRepositories.data;
+                        halRepresentations.repositories[ halRepresentation.id ] = responseRepositories.data;
                      }
                   } );
             }
@@ -277,7 +279,7 @@ define( [
                      releases: releases,
                      title: repository.repository.title,
                      pushedAt: repository.repository.pushedAt,
-                     href: repository.repository
+                     href: { _links: repository.repository._links }
                   } );
                } );
                return {
