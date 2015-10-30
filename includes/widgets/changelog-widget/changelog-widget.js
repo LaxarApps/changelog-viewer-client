@@ -18,9 +18,14 @@ define( [
    Controller.$inject = [ '$scope', '$sce' ];
 
    function Controller( $scope, $sce ) {
+      var BREAKING_CHANGE = 'BREAKING CHANGE';
+      var NEW_FEATURE = 'NEW FEATURE:';
+
       var defaultRenderer = new marked.Renderer();
       var renderer = new marked.Renderer();
       renderer.link = renderLink;
+      renderer.strong = renderStrong;
+      renderer.text = renderText;
 
       $scope.model = {};
       $scope.resources = {};
@@ -95,6 +100,7 @@ define( [
                if( Array.isArray( repository.releases ) ) {
                   repository.releases = repository.releases.sort( sortByVersion );
                   repository.lastVersion = getLastVersion( repository.releases[ 0 ] );
+                  repository.title = trimTitle( repository.title );
                   if( Array.isArray( repository.releases ) ) {
                      repository.releases.forEach( function( release ) {
                         if( !release ) { return; }
@@ -122,6 +128,15 @@ define( [
       function getLastVersion( release ) {
          if( !release ) { return; }
          return release.title;
+      }
+
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+      function trimTitle( title ) {
+         title = title.split( '/' );
+         title = title[ title.length - 1 ];
+         title = title.replace( '.git', '' );
+         return title;
       }
 
       ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -191,6 +206,25 @@ define( [
          }
          html += 'target="_blank">' + text + '</a>';
          return html;
+      }
+
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+      function renderStrong( text ) {
+         if( text.trim().search( BREAKING_CHANGE ) !== -1 ) {
+            return '<strong class="changelog-widget-breaking-change">' + text + '</strong>';
+         }
+         return '<strong>' + text + '</strong>';
+      }
+
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+      function renderText( text ) {
+         if( text.trim().search( NEW_FEATURE ) !== -1 ) {
+            var parts = text.split( NEW_FEATURE );
+            text = parts.join( '<em class="changelog-widget-new-feature">' + NEW_FEATURE + '</em>' );
+         }
+         return text;
       }
    }
 

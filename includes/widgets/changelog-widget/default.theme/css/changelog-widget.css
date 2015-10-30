@@ -47,3 +47,18 @@
 .changelog-widget li div li {
    background-color: #F3F3F3;
 }
+
+.changelog-widget .changelog-widget-no-target:hover {
+   cursor: default;
+}
+
+
+.changelog-widget em.changelog-widget-new-feature{
+   color: #c7254e;
+   font-style: normal;
+}
+
+
+.changelog-widget strong.changelog-widget-breaking-change {
+   color: #c7254e;
+}
