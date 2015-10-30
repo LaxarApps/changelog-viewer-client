@@ -83,7 +83,8 @@ define( [
                }
             } ).then( function() {
                $scope.eventBus.publish( 'didTakeAction.' + $scope.features.changelog.action, {
-                  action: $scope.features.changelog.action
+                  action: $scope.features.changelog.action,
+                  repository: { href:  event.repository.href }
                } );
             } );
          }

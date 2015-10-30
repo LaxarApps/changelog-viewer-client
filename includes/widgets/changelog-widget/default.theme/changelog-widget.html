@@ -23,7 +23,9 @@
          <li><button class="btn btn-link"
                      type="button"
                      data-ng-click="changelog( release.href )"
-            ><i data-ng-class="{ 'fa fa-plus-square': !model.visibleMap.releases[ release.href ],
+            ><i class="fa fa-spinner fa-spin"
+                data-ng-show="model.requestChangelogs[ repository.href._links.releases.href ] "
+            ></i><i data-ng-class="{ 'fa fa-plus-square': !model.visibleMap.releases[ release.href ],
        'fa fa-minus-square': model.visibleMap.releases[ release.href ] }"
                 data-ng-show="release.changelog"
             ></i>

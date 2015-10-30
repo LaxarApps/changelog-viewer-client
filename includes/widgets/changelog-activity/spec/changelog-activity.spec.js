@@ -125,7 +125,10 @@ define( [
                   .toHaveBeenCalledWith( 'didUpdate.categories', resources[ 1 ] );
                expect( widgetEventBus.publish )
                   .toHaveBeenCalledWith( 'didTakeAction.getChangelog', {
-                     action: 'getChangelog'
+                     action: 'getChangelog',
+                     repository: {
+                        href: '/repositories/1/releases'
+                     }
                   } );
             } );
 

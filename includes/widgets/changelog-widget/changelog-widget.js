@@ -25,6 +25,8 @@ define( [
       $scope.resources = {};
       var model = $scope.model;
 
+      model.requestChangelogs = {};
+
       model.visibleMap = {
          categories: {},
          repositories: {},
@@ -40,6 +42,10 @@ define( [
                onUpdateReplace: createModel
             } );
 
+      $scope.eventBus.subscribe( 'didTakeAction.' + $scope.features.changelog.action, function( event ) {
+         model.requestChangelogs[ event.repository.href ] = false;
+      } );
+
       ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
       $scope.showCategory = function( categoryIndex ) {
@@ -50,6 +56,7 @@ define( [
       $scope.showRepository = function( href ) {
          model.visibleMap.repositories[ href ] = !model.visibleMap.repositories[ href ];
          if( model.visibleMap.repositories[ href ] && !model.requestedDataMap.repositories[ href ] ) {
+            model.requestChangelogs[ href ] = true;
             $scope.eventBus.publish( 'takeActionRequest.' + $scope.features.changelog.action, {
                action: $scope.features.changelog.action,
                repository: { href: href }
