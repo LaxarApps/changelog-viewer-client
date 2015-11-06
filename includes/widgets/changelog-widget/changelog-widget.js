@@ -31,8 +31,6 @@ define( [
       $scope.resources = {};
       var model = $scope.model;
 
-      model.requestChangelogs = {};
-
       model.visibleMap = {
          categories: {},
          repositories: {},
@@ -48,9 +46,17 @@ define( [
                onUpdateReplace: createModel
             } );
 
-      $scope.eventBus.subscribe( 'didTakeAction.' + $scope.features.changelog.action, function( event ) {
-         model.requestChangelogs[ event.repository.href ] = false;
-      } );
+      $scope.expandAll = function( expand) {
+         model.categories.forEach( function( category, categoryIndex ) {
+            model.visibleMap.categories[categoryIndex] = expand;
+            category.repositories.forEach( function( repository ) {
+               model.visibleMap.repositories[repository.href._links.self.href] = expand;
+               repository.releases.forEach( function( release ) {
+                  model.visibleMap.releases[release.href] = expand;
+               } );
+            } );
+         } );
+      };
 
       ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -61,14 +67,6 @@ define( [
 
       $scope.showRepository = function( href ) {
          model.visibleMap.repositories[ href ] = !model.visibleMap.repositories[ href ];
-         if( model.visibleMap.repositories[ href ] && !model.requestedDataMap.repositories[ href ] ) {
-            model.requestChangelogs[ href ] = true;
-            $scope.eventBus.publish( 'takeActionRequest.' + $scope.features.changelog.action, {
-               action: $scope.features.changelog.action,
-               repository: { href: href }
-            } );
-            model.requestedDataMap.repositories[ href ] = true;
-         }
       };
 
       ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -85,33 +83,41 @@ define( [
             repositories: {},
             releases: {}
          };
-         model.requestedDataMap = {
-            repositories: {},
-            releases: {}
-         };
       }
 
       ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
       function createModel() {
          model.categories = ax.object.deepClone( $scope.resources.categories );
-         model.categories.forEach( function( category ) {
-            category.repositories.forEach( function( repository ) {
-               if( Array.isArray( repository.releases ) ) {
+         model.categories = model.categories.filter( function( category ) {
+            return category && Array.isArray( category.repositories ) && category.repositories.length > 0;
+         } );
+         model.categories = model.categories.map( function( category ) {
+
+            var repositories = category.repositories.filter( function( repository ) {
+                  return  Array.isArray( repository.releases );
+               } )
+               .map( function( repository ) {
                   repository.releases = repository.releases.sort( sortByVersion );
-                  repository.lastVersion = getLastVersion( repository.releases[ 0 ] );
+                  repository.lastVersion = getLastVersion( repository.releases[0] );
                   repository.title = trimTitle( repository.title );
-                  if( Array.isArray( repository.releases ) ) {
-                     repository.releases.forEach( function( release ) {
-                        if( !release ) { return; }
-                        if( release.changelog ) {
-                           release.changelog = filterChapter( release );
-                           release.changelog = markdownToHtml( release.changelog );
-                        }
-                     } );
-                  }
-               }
-            } );
+
+                  repository.releases = repository.releases.filter( function( release ) {
+                     return typeof release === 'object' && release.changelog;
+                  } ).map( function( release ) {
+                     release.changelog = filterChapter( release );
+                     release.changelog = markdownToHtml( release.changelog );
+                     return release;
+                  } );
+                  return repository;
+               } ).filter( function( repository ) {
+                  return repository.releases.length;
+               } );
+
+            return {
+               title: category.title,
+               repositories: repositories
+            };
          } );
       }
 

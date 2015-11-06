@@ -19,9 +19,6 @@ define( [
          axMocks.widget.configure( {
             'categories': {
                'resource': 'categories'
-            },
-            'changelog': {
-               'action': 'getChangelog'
             }
          } );
       } );
@@ -51,24 +48,6 @@ define( [
       } );
 
       ////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-      describe( 'with feature "releases"', function() {
-
-         it( 'requests a list with releases by publishing a takeActionRequest', function() {
-            var href = 'localhost/repository';
-
-            axMocks.widget.$scope.showRepository( href );
-            expect( axMocks.widget.$scope.eventBus.publish )
-               .toHaveBeenCalledWith( 'takeActionRequest.getChangelog', {
-                  action: 'getChangelog',
-                  repository: {
-                     href: href
-                  }
-               } );
-         } );
-
-      } );
-
 
       afterEach( axMocks.tearDown );
 

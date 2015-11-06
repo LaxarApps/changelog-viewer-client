@@ -27,14 +27,6 @@
                   "type": "string"
                }
             }
-         },
-         "changelog": {
-            "type": "object",
-            "properties": {
-               "action": {
-                  "type": "string"
-               }
-            }
          }
       }
    }

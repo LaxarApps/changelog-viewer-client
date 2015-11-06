@@ -28,9 +28,6 @@ define( [
             },
             'categories': {
                'resource': 'categories'
-            },
-            'changelog': {
-               'action': 'getChangelog'
             }
          } );
       } );
@@ -61,6 +58,26 @@ define( [
          $httpBackend.whenGET( '/repositories/1/releases' ).respond( 200, changelogApi[ '/repositories/1/releases' ] );
          $httpBackend.whenGET( '/repositories/3/releases' ).respond( 200, changelogApi[ '/repositories/3/releases' ] );
          $httpBackend.whenGET( '/repositories/4/releases' ).respond( 200, changelogApi[ '/repositories/4/releases' ] );
+
+         $httpBackend.whenGET( 'http://localhost:8007/api/repositories/0/releases/master' ).respond( 200, releases[ '/repositories/0/releases/master' ] );
+         $httpBackend.whenGET( 'http://localhost:8007/api/repositories/0/releases/master-2.x' ).respond( 200, releases[ '/repositories/0/releases/master-2.x' ] );
+         $httpBackend.whenGET( 'http://localhost:8007/api/repositories/0/releases/2.0.x' ).respond( 200, releases[ '/repositories/0/releases/2.0.x' ] );
+         $httpBackend.whenGET( 'http://localhost:8007/api/repositories/0/releases/3.0.x' ).respond( 200, releases[ '/repositories/0/releases/3.0.x' ] );
+
+         $httpBackend.whenGET( 'http://localhost:8007/api/repositories/1/releases/2.0.x' ).respond( 200, releases[ '/repositories/1/releases/2.0.x' ] );
+         $httpBackend.whenGET( 'http://localhost:8007/api/repositories/1/releases/3.0.x' ).respond( 200, releases[ '/repositories/1/releases/3.0.x' ] );
+         $httpBackend.whenGET( 'http://localhost:8007/api/repositories/1/releases/master' ).respond( 200, releases[ '/repositories/1/releases/master' ] );
+         $httpBackend.whenGET( 'http://localhost:8007/api/repositories/1/releases/master-2.x' ).respond( 200, releases[ '/repositories/1/releases/master-2.x' ] );
+
+         $httpBackend.whenGET( 'http://localhost:8007/api/repositories/3/releases/master' ).respond( 200, releases[ '/repositories/3/releases/master' ] );
+         $httpBackend.whenGET( 'http://localhost:8007/api/repositories/3/releases/master-2.x' ).respond( 200, releases[ '/repositories/3/releases/master-2.x' ] );
+         $httpBackend.whenGET( 'http://localhost:8007/api/repositories/3/releases/2.0.x' ).respond( 200, releases[ '/repositories/3/releases/2.0.x' ] );
+         $httpBackend.whenGET( 'http://localhost:8007/api/repositories/3/releases/3.0.x' ).respond( 200, releases[ '/repositories/3/releases/3.0.x' ] );
+
+         $httpBackend.whenGET( 'http://localhost:8007/api/repositories/4/releases/master' ).respond( 200, releases[ '/repositories/4/releases/master' ] );
+         $httpBackend.whenGET( 'http://localhost:8007/api/repositories/4/releases/master-1.x' ).respond( 200, releases[ '/repositories/4/releases/master-1.x' ] );
+         $httpBackend.whenGET( 'http://localhost:8007/api/repositories/4/releases/2.0.x' ).respond( 200, releases[ '/repositories/4/releases/2.0.x' ] );
+         $httpBackend.whenGET( 'http://localhost:8007/api/repositories/4/releases/1.0.x' ).respond( 200, releases[ '/repositories/4/releases/1.0.x' ] );
          axMocks.triggerStartupEvents();
       } );
 
@@ -81,59 +98,31 @@ define( [
                   data: resources[ 0 ]
                } );
          } );
-      } );
 
-      ////////////////////////////////////////////////////////////////////////////////////////////////////////
+         /////////////////////////////////////////////////////////////////////////////////////////////////////
 
-      describe( 'with feature "changelog"', function() {
-
-         it( 'subscribes to the takeActionRequest of the configured "changelog.action"', function() {
+         it( 'gets the list of repositories and updates the "categories" resource ', function() {
             $httpBackend.flush();
-            expect( widgetEventBus.subscribe )
-               .toHaveBeenCalledWith( 'takeActionRequest.getChangelog', jasmine.any(Function) );
+            expect( widgetEventBus.publish )
+               .toHaveBeenCalledWith( 'didUpdate.categories', {
+                  resource: 'categories',
+                  patches: resources[ 1 ]
+               } );
          } );
 
          /////////////////////////////////////////////////////////////////////////////////////////////////////
 
-         describe( 'when receiving a takeActionRequest for the changelogs of a repository', function() {
-
-            beforeEach( function() {
-               $httpBackend.flush();
-               widgetEventBus.publish.calls.reset();
-               $httpBackend.whenGET( 'http://localhost:8007/api/repositories/1/releases/2.0.x' ).respond( 200, releases[ '/repositories/1/releases/2.0.x' ] );
-               $httpBackend.whenGET( 'http://localhost:8007/api/repositories/1/releases/3.0.x' ).respond( 200, releases[ '/repositories/1/releases/3.0.x' ] );
-               $httpBackend.whenGET( 'http://localhost:8007/api/repositories/1/releases/master' ).respond( 200, releases[ '/repositories/1/releases/master' ] );
-               $httpBackend.whenGET( 'http://localhost:8007/api/repositories/1/releases/master-2.x' ).respond( 200, releases[ '/repositories/1/releases/master-2.x' ] );
-               testEventBus.publish( 'takeActionRequest.getChangelog', {
-                  action: 'getChangelog',
-                  repository: {
-                     href: '/repositories/1/releases'
-                  }
+         // ToDo: Fixing bug in service
+         // https://github.com/LaxarApps/changelog-viewer-server/issues/1
+         xit( 'gets the list of releases and updates the "categories" resource ', function() {
+            $httpBackend.flush();
+            expect( widgetEventBus.publish )
+               .toHaveBeenCalledWith( 'didUpdate.categories', {
+                  resource: 'categories',
+                  patches: resources[ 2 ]
                } );
-               testEventBus.flush();
-               $httpBackend.flush();
-            } );
-
-            //////////////////////////////////////////////////////////////////////////////////////////////////
-
-            it( 'gets the list of releases and publishes an update of the "categories" resource ', function() {
-               expect( widgetEventBus.publish )
-                  .toHaveBeenCalledWith( 'willTakeAction.getChangelog', {
-                     action: 'getChangelog'
-                  } );
-               expect( widgetEventBus.publish )
-                  .toHaveBeenCalledWith( 'didUpdate.categories', resources[ 1 ] );
-               expect( widgetEventBus.publish )
-                  .toHaveBeenCalledWith( 'didTakeAction.getChangelog', {
-                     action: 'getChangelog',
-                     repository: {
-                        href: '/repositories/1/releases'
-                     }
-                  } );
-            } );
-
-
          } );
+
       } );
 
       ////////////////////////////////////////////////////////////////////////////////////////////////////////

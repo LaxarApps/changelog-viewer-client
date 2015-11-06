@@ -1,3 +1,15 @@
+<button class="btn btn-default"
+        type="button"
+        data-ng-click="expandAll( true )"
+        data-ng-show="features.expandAll.enabled"
+        data-ng-bind-html="features.expandAll.button.htmlLabel"
+   ></button>
+<button class="btn btn-default"
+        type="button"
+        data-ng-click="expandAll( false )"
+        data-ng-show="features.collapseAll.enabled"
+        data-ng-bind-html="features.collapseAll.button.htmlLabel"
+   ></button>
 <ul data-ng-repeat="( categoryIndex, category) in model.categories">
    <li><button class="btn btn-link"
                data-ng-class="{ 'changelog-widget-no-target': category.repositories.length === 0 }"
@@ -13,26 +25,23 @@
       <li><button class="btn btn-link"
                   data-ng-class="{ 'changelog-widget-no-target': !repository.releases.length }"
                   type="button"
-                  data-ng-click="showRepository( repository.href._links.releases.href )"
-            ><i data-ng-class="{ 'fa fa-plus-square': !model.visibleMap.repositories[ repository.href_links.releases.href ],
-            'fa fa-minus-square': model.visibleMap.repositories[ repository.href._links.releases.href ] }"
+                  data-ng-click="showRepository( repository.href._links.self.href )"
+            ><i data-ng-class="{ 'fa fa-plus-square': !model.visibleMap.repositories[ repository.href_links.self.href ],
+            'fa fa-minus-square': model.visibleMap.repositories[ repository.href._links.self.href ] }"
                 data-ng-show="repository.releases.length > 0"
          ></i> {{repository.title}} {{repository.lastVersion}}</button>
       </li>
-      <ul data-ng-show="model.visibleMap.repositories[ repository.href._links.releases.href ]"
+      <ul data-ng-show="model.visibleMap.repositories[ repository.href._links.self.href ]"
           data-ng-repeat="( releaseIndex, release) in repository.releases">
          <li><button class="btn btn-link"
                      data-ng-class="{ 'changelog-widget-no-target': !release.changelog }"
                      type="button"
                      data-ng-click="changelog( release.href )"
-            ><i class="fa fa-spinner fa-spin"
-                data-ng-show="model.requestChangelogs[ repository.href._links.releases.href ] "
             ></i><i data-ng-class="{ 'fa fa-plus-square': !model.visibleMap.releases[ release.href ],
        'fa fa-minus-square': model.visibleMap.releases[ release.href ] }"
-                data-ng-show="release.changelog"
             ></i>
             {{release.title}}</button>
-            <div data-ng-show="model.visibleMap.releases[ release.href ] && release.changelog"
+            <div data-ng-show="model.visibleMap.releases[ release.href ]"
                  data-ng-bind-html="release.changelog"></div>
          </li>
       </ul>

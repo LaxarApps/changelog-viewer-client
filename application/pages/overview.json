@@ -11,9 +11,6 @@
                },
                "categories": {
                   "resource": "categories"
-               },
-               "changelog": {
-                  "action": "getChangelog"
                }
             }
          }
@@ -25,9 +22,6 @@
             "features": {
                "categories": {
                   "resource": "categories"
-               },
-               "changelog": {
-                  "action": "getChangelog"
                }
             }
          }
