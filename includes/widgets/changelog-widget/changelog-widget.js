@@ -46,11 +46,11 @@ define( [
 
       $scope.expandAll = function( expand) {
          model.categories.forEach( function( category, categoryIndex ) {
-            model.visibleMap.categories[categoryIndex] = expand;
+            model.visibleMap.categories[ categoryIndex ] = expand;
             category.repositories.forEach( function( repository ) {
-               model.visibleMap.repositories[repository.href._links.self.href] = expand;
+               model.visibleMap.repositories[ repository.href._links.self.href ] = expand;
                repository.releases.forEach( function( release ) {
-                  model.visibleMap.releases[release.href] = expand;
+                  model.visibleMap.releases[ release.href ] = expand;
                } );
             } );
          } );
@@ -90,14 +90,14 @@ define( [
          model.categories = model.categories.filter( function( category ) {
             return category && Array.isArray( category.repositories ) && category.repositories.length > 0;
          } );
-         model.categories = model.categories.map( function( category ) {
 
+         model.categories = model.categories.map( function( category, index ) {
             var repositories = category.repositories.filter( function( repository ) {
                   return  Array.isArray( repository.releases );
                } )
                .map( function( repository ) {
                   repository.releases = repository.releases.sort( sortByVersion );
-                  repository.lastVersion = getLastVersion( repository.releases[0] );
+                  repository.lastVersion = getLastVersion( repository.releases[ 0 ] );
                   repository.title = trimTitle( repository.title );
 
                   repository.releases = repository.releases.filter( function( release ) {
@@ -117,6 +117,7 @@ define( [
                repositories: repositories
             };
          } );
+
       }
 
       ////////////////////////////////////////////////////////////////////////////////////////////////////////

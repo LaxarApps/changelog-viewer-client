@@ -48,10 +48,6 @@
    background-color: #F3F3F3;
 }
 
-.changelog-widget .changelog-widget-no-target:hover {
-   cursor: default;
-}
-
 
 .changelog-widget em.changelog-widget-new-feature{
    color: #c7254e;
