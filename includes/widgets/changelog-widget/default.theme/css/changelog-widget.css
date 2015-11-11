@@ -62,3 +62,8 @@
 .changelog-widget strong.changelog-widget-breaking-change {
    color: #c7254e;
 }
+
+.changelog-widget .changelog-widget-spinner {
+   text-align: center;
+   color: #ddd;
+}
