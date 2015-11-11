@@ -36,9 +36,7 @@ define( [
          repositories: {},
          releases: {}
       };
-      model.requestedDataMap = {
-         repositories: {}
-      };
+      model.categories = [];
 
       patterns.resources.handlerFor( $scope )
             .registerResourceFromFeature( 'categories', {
