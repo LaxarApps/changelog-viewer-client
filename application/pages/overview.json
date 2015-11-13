@@ -1,0 +1,31 @@
+{
+   "layout": "one-column",
+
+   "areas": {
+      "activities": [
+         {
+            "widget": "changelog-activity",
+            "features": {
+               "server": {
+                  "url": "http://jsc:8007/api"
+               },
+               "categories": {
+                  "resource": "categories"
+               }
+            }
+         }
+      ],
+
+      "content": [
+         {
+            "widget": "changelog-widget",
+            "features": {
+               "categories": {
+                  "resource": "categories"
+               }
+            }
+         }
+      ]
+
+   }
+}

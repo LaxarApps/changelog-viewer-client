@@ -1,0 +1,33 @@
+{
+   "name": "changelog-activity",
+   "description": "Provides a list of repositories and data about them",
+
+   "integration": {
+      "technology": "angular",
+      "type": "activity"
+   },
+
+   "features": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "required": [ "server", "categories" ],
+      "properties": {
+         "server": {
+            "type": "object",
+            "properties": {
+               "url": {
+                  "type": "string"
+               }
+            }
+         },
+         "categories": {
+            "type": "object",
+            "properties": {
+               "resource": {
+                  "type": "string"
+               }
+            }
+         }
+      }
+   }
+}

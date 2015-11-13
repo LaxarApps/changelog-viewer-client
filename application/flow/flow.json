@@ -1,0 +1,11 @@
+{
+   "places": {
+      "entry": {
+         "redirectTo": "overview"
+      },
+
+      "overview": {
+         "page":  "overview"
+      }
+   }
+}

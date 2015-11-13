@@ -1,0 +1,9 @@
+{
+  "generator-laxarjs": {
+    "author": "aixigo AG",
+    "homepage": "http://laxarjs.org/license",
+    "licenses": [
+      "MIT"
+    ]
+  }
+}

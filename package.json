@@ -1,0 +1,18 @@
+{
+   "name": "changelog-viewer-client",
+   "version": "0.1.0-pre",
+   "description": "",
+   "license": "MIT",
+   "scripts": {
+      "test": "grunt test --force",
+      "prepublish": "bower install && grunt optimize",
+      "dist": "grunt dist",
+      "start": "grunt start",
+      "optimize": "grunt optimize"
+   },
+   "devDependencies": {
+      "grunt": "~0.4.4",
+      "grunt-connect-proxy": "^0.2.0",
+      "grunt-laxar": "~1.1.0-alpha.4"
+   }
+}

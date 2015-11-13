@@ -1,0 +1,239 @@
+{
+   "/api": {
+      "_links": {
+         "self": {
+            "href": "/api"
+         },
+         "categories": {
+            "href": "/categories"
+         }
+      }
+   },
+   "/categories": {
+      "_links": {
+         "self": {
+            "href": "/categories"
+         },
+         "category": [
+            {
+               "rel": "category",
+               "href": "/categories/frontend"
+            },
+            {
+               "rel": "category",
+               "href": "/categories/backend"
+            }
+         ]
+      }
+   },
+   "/categories/frontend": {
+      "_links": {
+         "self": {
+            "href": "/categories/frontend"
+         },
+         "repositories": {
+            "href": "/categories/frontend/repositories"
+         }
+      },
+      "title": "Frontend",
+      "id": "Frontend"
+   },
+   "/categories/frontend/repositories": {
+      "_links": {
+         "self": {
+            "href": "/categories/frontend/repositories"
+         },
+         "repository": [
+            {
+               "rel": "repository",
+               "href": "/repositories/0"
+
+            },
+            {
+               "rel": "repository",
+               "href": "/repositories/1"
+
+            }
+         ]
+      }
+   },
+   "/repositories/0": {
+      "_links": {
+         "self": {
+            "href": "/repositories/0"
+         },
+         "releases": {
+            "href": "/repositories/0/releases"
+         }
+      },
+      "title": "ax-headline-widget",
+      "pushedAt": "2015-06-05T09:42:11Z"
+   },
+   "/repositories/1": {
+      "_links": {
+         "self": {
+            "href": "/repositories/1"
+         },
+         "releases": {
+            "href": "/repositories/1/releases"
+         }
+      },
+      "title": "ax-other-headline-widget",
+      "pushedAt": "2015-06-02T09:42:11Z"
+   },
+   "/categories/backend": {
+      "_links": {
+         "self": {
+            "href": "/categories/backend"
+         },
+         "repositories": {
+            "href": "/categories/backend/repositories"
+         }
+      },
+      "id": "backend",
+      "title": "Backend"
+   },
+   "/categories/backend/repositories": {
+      "_links": {
+         "self": {
+            "href": "/categories/backend/repositories"
+         },
+         "repository": [
+            {
+               "rel": "repository",
+               "href": "/repositories/3"
+
+            },
+            {
+               "rel": "repository",
+               "href": "/repositories/4"
+
+            }
+         ]
+      }
+   },
+   "/repositories/3": {
+      "_links": {
+         "self": {
+            "href": "/repositories/3"
+         },
+         "releases": {
+            "href": "/repositories/3/releases"
+         }
+      },
+      "title": "service",
+      "pushedAt": "2015-06-05T09:42:11Z"
+   },
+   "/repositories/4": {
+      "_links": {
+         "self": {
+            "href": "/repositories/4"
+         },
+         "releases": {
+            "href": "/repositories/4/releases"
+         }
+      },
+      "title": "other-service",
+      "pushedAt": "2015-06-02T09:42:11Z"
+   },
+   "/repositories/0/releases": {
+      "_links": {
+         "self": {
+            "href": "/repositories/0/releases"
+         },
+         "release": [
+            {
+               "href": "/repositories/0/releases/master",
+               "title": "master"
+            },
+            {
+               "href": "/repositories/0/releases/master-2.x",
+               "title": "master 2.x"
+            },
+            {
+               "href": "/repositories/0/releases/v2.0.x",
+               "title": "v2.0.x"
+            },
+            {
+               "href": "/repositories/0/releases/v3.0.x",
+               "title": "v3.0.x"
+            }
+         ]
+      }
+   },
+   "/repositories/1/releases": {
+      "_links": {
+         "self": {
+            "href": "/repositories/1/releases"
+         },
+         "release": [
+            {
+               "href": "/repositories/1/releases/master",
+               "title": "master"
+            },
+            {
+               "href": "/repositories/1/releases/master-2.x",
+               "title": "master 2.x"
+            },
+            {
+               "href": "/repositories/1/releases/v3.0.x",
+               "title": "v3.0.x"
+            },
+            {
+               "href": "/repositories/1/releases/v2.0.x",
+               "title": "v2.0.x"
+            }
+         ]
+      }
+   },
+   "/repositories/3/releases": {
+      "_links": {
+         "self": {
+            "href": "/repositories/3/releases"
+         },
+         "release": [
+            {
+               "href": "/repositories/3/releases/master",
+               "title": "master"
+            },
+            {
+               "href": "/repositories/3/releases/master-2.x",
+               "title": "master 2.x"
+            },
+            {
+               "href": "/repositories/3/releases/v2.0.x",
+               "title": "v2.0.x"
+            },
+            {
+               "href": "/repositories/3/releases/v3.0.x",
+               "title": "v3.0.x"
+            }
+         ]
+      }
+   },
+   "/repositories/4/releases": {
+      "_links": {
+         "self": {
+            "href": "/repositories/4/releases"
+         },
+         "release": [
+            {
+               "href": "/repositories/4/releases/master",
+               "title": "master"
+            },
+            {
+               "href": "/repositories/4/releases/master-1.x",
+               "title": "master 1.x"
+            },
+            {
+               "href": "/repositories/4/releases/v1.0.x",
+               "title": "v1.0.x"
+            },
+            {
+               "href": "/repositories/4/releases/v2.0.x",
+               "title": "v2.0.x"
+            }
+         ]
+      }
+   }
+}
