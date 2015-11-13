@@ -28,7 +28,6 @@ define( [
          REPOSITORY: 'repository',
          RELEASES: 'releases'
       };
-      var replaceResource = false;
 
       ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -36,9 +35,7 @@ define( [
          getCategories()
             .then( getCategory )
             .then( getAllRepositories )
-            .then( createModelAndPublishResource )
-            .then( getAllReleases ) //repository
-            .then( createModelAndPublishResource )
+            .then( getAllReleases )
             .then( getAllChangelogs )
             .then( createModelAndPublishResource );
       } );
@@ -46,7 +43,6 @@ define( [
       ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
       function getCategories() {
-         replaceResource = true;
          return hal.get( LOCATION )
             .on( {
                '200': hal.thenFollow( relations.CATEGORIES )
@@ -210,13 +206,7 @@ define( [
          return $q.all( promises ).then( function( responses ) {
             data.changelogs = {};
             responses.forEach( function( response ) {
-               // ToDo: Fixing bug in service
-               // https://github.com/LaxarApps/changelog-viewer-server/issues/1
-               // var href = response.href;
-               var href = response.href.split( '/' );
-               href[ href.length - 1 ] = href[ href.length - 1].slice( 1 );
-               href = href.join( '/' );
-
+               var href = response.href;
                data.changelogs[ href ] = response.changelog;
             } );
             return data;
@@ -244,12 +234,8 @@ define( [
 
       function createModelAndPublishResource( data ){
          var categories = createModel( data );
-         if( replaceResource ) {
-            publishResource( categories );
-         }
-         else {
-            updateResource( categories );
-         }
+         publishResource( categories );
+
          $scope.model.categories = ax.object.deepClone( categories );
          return data;
       }
@@ -295,24 +281,12 @@ define( [
       ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
       function publishResource( categories ) {
-         replaceResource = false;
          $scope.eventBus.publish( 'didReplace.' + $scope.features.categories.resource, {
             resource: $scope.features.categories.resource,
             data: categories
          } );
       }
 
-      ////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-      function updateResource( categories ) {
-         var patch = patterns.json.createPatch( $scope.model.categories, categories );
-         if( patch.length > 0 ) {
-            $scope.eventBus.publish( 'didUpdate.' + $scope.features.categories.resource, {
-               resource: $scope.features.categories.resource,
-               patches: patch
-            } );
-         }
-      }
    }
 
    ///////////////////////////////////////////////////////////////////////////////////////////////////////////

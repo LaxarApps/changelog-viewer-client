@@ -1,13 +1,13 @@
 <button class="btn btn-default"
         type="button"
         data-ng-click="expandAll( true )"
-        data-ng-show="features.expandAll.enabled"
+        data-ng-show="features.expandAll.enabled && model.categories.length > 0"
         data-ng-bind-html="features.expandAll.button.htmlLabel"
    ></button>
 <button class="btn btn-default"
         type="button"
         data-ng-click="expandAll( false )"
-        data-ng-show="features.collapseAll.enabled"
+        data-ng-show="features.collapseAll.enabled && model.categories.length > 0"
         data-ng-bind-html="features.collapseAll.button.htmlLabel"
    ></button>
    <div class="changelog-widget-spinner">
