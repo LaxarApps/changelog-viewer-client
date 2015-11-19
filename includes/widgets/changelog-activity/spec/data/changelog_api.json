@@ -151,11 +151,11 @@
                "title": "master 2.x"
             },
             {
-               "href": "/repositories/0/releases/v2.0.x",
+               "href": "/repositories/0/releases/2.0.x",
                "title": "v2.0.x"
             },
             {
-               "href": "/repositories/0/releases/v3.0.x",
+               "href": "/repositories/0/releases/3.0.x",
                "title": "v3.0.x"
             }
          ]
@@ -176,11 +176,11 @@
                "title": "master 2.x"
             },
             {
-               "href": "/repositories/1/releases/v3.0.x",
+               "href": "/repositories/1/releases/3.0.x",
                "title": "v3.0.x"
             },
             {
-               "href": "/repositories/1/releases/v2.0.x",
+               "href": "/repositories/1/releases/2.0.x",
                "title": "v2.0.x"
             }
          ]
@@ -201,11 +201,11 @@
                "title": "master 2.x"
             },
             {
-               "href": "/repositories/3/releases/v2.0.x",
+               "href": "/repositories/3/releases/2.0.x",
                "title": "v2.0.x"
             },
             {
-               "href": "/repositories/3/releases/v3.0.x",
+               "href": "/repositories/3/releases/3.0.x",
                "title": "v3.0.x"
             }
          ]
@@ -226,11 +226,11 @@
                "title": "master 1.x"
             },
             {
-               "href": "/repositories/4/releases/v1.0.x",
+               "href": "/repositories/4/releases/1.0.x",
                "title": "v1.0.x"
             },
             {
-               "href": "/repositories/4/releases/v2.0.x",
+               "href": "/repositories/4/releases/2.0.x",
                "title": "v2.0.x"
             }
          ]

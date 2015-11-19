@@ -37,6 +37,10 @@ define( [
          releases: {}
       };
       model.categories = [];
+      model.requestedDataMap = {
+         repositories: {}
+      };
+      model.requestChangelogs = {};
 
       patterns.resources.handlerFor( $scope )
             .registerResourceFromFeature( 'categories', {
@@ -63,8 +67,17 @@ define( [
       };
       ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-      $scope.showRepository = function( href ) {
-         model.visibleMap.repositories[ href ] = !model.visibleMap.repositories[ href ];
+      $scope.showRepository = function( repository ) {
+         var href = repository._links.self.href;
+         model.visibleMap.repositories[ href ] = !model.visibleMap.repositories[ href  ];
+         if( model.visibleMap.repositories[ href  ] && !model.requestedDataMap.repositories[ href ] ) {
+            model.requestChangelogs[ href ] = true;
+            $scope.eventBus.publish( 'takeActionRequest.' + $scope.features.changelog.action, {
+               action: $scope.features.changelog.action,
+               repository: repository
+            } );
+            model.requestedDataMap.repositories[ href ] = true;
+         }
       };
 
       ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -90,34 +103,60 @@ define( [
          model.categories = model.categories.filter( function( category ) {
             return category && Array.isArray( category.repositories ) && category.repositories.length > 0;
          } );
-
          model.categories = model.categories.map( function( category, index ) {
-            var repositories = category.repositories.filter( function( repository ) {
-                  return  Array.isArray( repository.releases );
-               } )
-               .map( function( repository ) {
-                  repository.releases = repository.releases.sort( sortByVersion );
-                  repository.lastVersion = getLastVersion( repository.releases[ 0 ] );
+            if( Array.isArray( category.repositories ) ) {
+               var repositories = category.repositories.map( function( repository ) {
                   repository.title = trimTitle( repository.title );
+                  if( repository.releases ) {
+                     repository.releases = repository.releases.sort( sortByVersion );
+                     repository.lastVersion = getLastVersion( repository.releases[0] );
 
-                  repository.releases = repository.releases.filter( function( release ) {
-                     return typeof release === 'object' && release.changelog;
-                  } ).map( function( release ) {
-                     release.changelog = filterChapter( release );
-                     release.changelog = markdownToHtml( release.changelog );
-                     return release;
-                  } );
+                     repository.releases = repository.releases.filter( function( release ) {
+                        return typeof release === 'object' && release.changelog;
+                     } ).map( function( release ) {
+                        release.changelog = filterChapter( release );
+                        release.changelog = markdownToHtml( release.changelog );
+                        return release;
+                     } );
+                  }
                   return repository;
-               } ).filter( function( repository ) {
-                  return repository.releases.length;
                } );
 
-            return {
-               title: category.title,
-               repositories: repositories
-            };
+               return {
+                  title: category.title,
+                  repositories: repositories
+               };
+            }
+            else {
+               return null;
+            }
          } );
-
+         //model.categories = model.categories.map( function( category, index ) {
+         //   var repositories = category.repositories.filter( function( repository ) {
+         //         return  Array.isArray( repository.releases );
+         //      } )
+         //      .map( function( repository ) {
+         //         repository.releases = repository.releases.sort( sortByVersion );
+         //         repository.lastVersion = getLastVersion( repository.releases[ 0 ] );
+         //         repository.title = trimTitle( repository.title );
+         //
+         //         repository.releases = repository.releases.filter( function( release ) {
+         //            return typeof release === 'object' && release.changelog;
+         //         } ).map( function( release ) {
+         //            release.changelog = filterChapter( release );
+         //            release.changelog = markdownToHtml( release.changelog );
+         //            return release;
+         //         } );
+         //         return repository;
+         //      } ).filter( function( repository ) {
+         //         return repository.releases.length;
+         //      } );
+         //
+         //   return {
+         //      title: category.title,
+         //      repositories: repositories
+         //   };
+         //} );
       }
 
       ////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -20,6 +20,17 @@
                }
             }
          },
+         "changelog": {
+            "type": "object",
+            "description": "Request the changelogs in markdown of all releases of a repository",
+            "properties": {
+               "action": {
+                  "type": "string",
+                  "description": "Name of the action to request a changelog",
+                  "format": "topic"
+               }
+            }
+         },
          "expandAll": {
             "type": "object",
             "description": "Expand all categories and show all changelogs",

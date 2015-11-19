@@ -26,23 +26,42 @@ define( [
          CATEGORY: 'category',
          REPOSITORIES: 'repositories',
          REPOSITORY: 'repository',
-         RELEASES: 'releases'
+         RELEASES: 'releases',
+         RELEASE: 'release'
       };
+      var replaceResource = false;
 
       ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
       $scope.eventBus.subscribe( 'beginLifecycleRequest', function( event ) {
          getCategories()
-            .then( getCategory )
+            .then( getEachCategory )
             .then( getAllRepositories )
-            .then( getAllReleases )
-            .then( getAllChangelogs )
+            .then( getRepository )
             .then( createModelAndPublishResource );
       } );
 
+      $scope.eventBus.subscribe( 'takeActionRequest.' + $scope.features.changelog.action, function( event ) {
+         if( ( ( event.repository || {} )._links || {} ).releases ) {
+            $scope.eventBus.publish( 'willTakeAction.' + $scope.features.changelog.action, {
+               action: $scope.features.changelog.action,
+               repository: event.repository
+            } );
+            getReleases( event.repository )
+               .then( getAllChangelogs )
+               .then( expandModelAndUpdateResource )
+               .then( function() {
+                  $scope.eventBus.publish( 'didTakeAction.' + $scope.features.changelog.action, {
+                     action: $scope.features.changelog.action,
+                     repository: event.repository
+                  } );
+               } );
+         }
+      } );
       ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
       function getCategories() {
+         replaceResource = true;
          return hal.get( LOCATION )
             .on( {
                '200': hal.thenFollow( relations.CATEGORIES )
@@ -58,7 +77,7 @@ define( [
 
       ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-      function getCategory( halRepresentations ) {
+      function getEachCategory( halRepresentations ) {
          return hal.followAll( halRepresentations.categories, relations.CATEGORY )
             .on( {
                'xxx': function( responses ) {
@@ -91,13 +110,93 @@ define( [
             return hal.follow( halRepresentation, relations.REPOSITORIES )
                .on( {
                   '200': function( responseRepositories ) {
-                     halRepresentations.repositories[ halRepresentation.id ] = responseRepositories.data;
+                        halRepresentations.repositories[halRepresentation.id] = responseRepositories.data;
                   }
                } );
          }
       }
 
       ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+      function getRepository( halRepresentations ) {
+         var promises = halRepresentations.category.map( function( category ) {
+            return getOneRepository( category.id, halRepresentations.repositories[category.id] );
+         } );
+         halRepresentations.releases = {};
+         return $q.all( promises ).then( function( response ) {
+            halRepresentations.repository = response;
+            return halRepresentations;
+         } );
+
+         /////////////////////////////////////////////////////////////////////////////////////////////////////
+
+         function getOneRepository( categoryId, halRepresentation ) {
+            return hal.followAll( halRepresentation, relations.REPOSITORY )
+               .on( {
+                  'xxx': function( responses ) {
+                     var data_ = {
+                        id: categoryId,
+                        repositories: []
+                     };
+                     if( Array.isArray( responses ) ) {
+                        var successResponses = responses.filter( function( response ) {
+                           return response.status === 200;
+                        } );
+                        data_.repositories = successResponses;
+                        return data_;
+                     }
+                     else if( responses.status === 200 ) {
+                        data_.repositories = [responses];
+                        return data_;
+                     }
+                     else {
+                        data_.repositories = [responses];
+                        return data_;
+                     }
+                  }
+               } );
+         }
+      }
+
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+      function getReleases( repository ) {
+         return hal.follow( repository, relations.RELEASES ).on( {
+            '500': function( error ) {
+               ax.log.error( error.statusText + ': ' + error.config.url );
+            },
+            'xxx': function( response ) {
+               if( ( response.data._links || {} ).release ) {
+                  return {
+                     repository: repository,
+                     //releases: response.data._links.release,
+                     halRepresentation: response.data
+                  };
+               }
+            }
+         } );
+      }
+
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+      function expandModelAndUpdateResource( data ) {
+         if( !data ) { return; }
+         var categories = ax.object.deepClone( $scope.model.categories );
+         categories.forEach( function( category ) {
+            category.repositories.forEach( function( repository ) {
+               if( data.repository._links.self.href === repository._links.self.href ) {
+                  repository.releases = data.releases.filter( function( release ) {
+                     return release.status === 200;
+                  } ).map( function( release ) {
+                     return release.data;
+                  } );
+               }
+            } );
+         } );
+         updateResource( categories );
+         $scope.model.categories = ax.object.deepClone( categories );
+         return true;
+      }
 
       function getAllReleases( halRepresentations ) {
          var promises = halRepresentations.category.map( function( category ) {
@@ -118,7 +217,7 @@ define( [
             return halRepresentations;
          } );
 
-         //////////////////////////////////////////////////////////////////////////////////////////////////
+         /////////////////////////////////////////////////////////////////////////////////////////////////////
 
          function getRepository( categoryId, halRepresentation ) {
             return hal.followAll( halRepresentation, relations.REPOSITORY )
@@ -150,7 +249,7 @@ define( [
 
       ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-      function getReleases( data ) {
+      function getReleasesx( data ) {
          var promises = [];
          data.repositories.forEach( function( repository ) {
             if( repository.data ) {
@@ -184,65 +283,153 @@ define( [
       ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
       function getAllChangelogs( data ) {
-         var categories = ax.object.deepClone( $scope.model.categories );
-         var promises = [];
-
-         data.category.forEach( function( category ) {
-            data.releases[ category.id ].forEach( function( repository ) {
-               if( !( ( repository.releases || {} )._links || {} ).release ){
-                  return;
-               }
-               if( Array.isArray( repository.releases._links.release ) ) {
-                  repository.releases._links.release.forEach( function( release ) {
-                     promises.push( getChangelog( release.href ) );
-                  } );
-               }
-               else {
-                  promises.push( getChangelog( repository.releases._links.release.href ) );
-               }
-            } );
-         } );
-
-         return $q.all( promises ).then( function( responses ) {
-            data.changelogs = {};
-            responses.forEach( function( response ) {
-               var href = response.href;
-               data.changelogs[ href ] = response.changelog;
-            } );
-            return data;
-         } );
-
-         /////////////////////////////////////////////////////////////////////////////////////////////////////
-
-         function getChangelog( href ) {
-            return hal.get( LOCATION + href )
-               .on( {
-                  '200': function( response ) {
-                     return {
-                        href: response.data._links.self.href,
-                        changelog: response.data.changelog
-                     };
-                  },
-                  'xxx': function( response ) {
-                     return false;
+         if( !data ) { return; }
+         return hal.followAll( data.halRepresentation, relations.RELEASE )
+            .on( {
+               'xxx': function( responses ) {
+                  var data_ = data;
+                  if( Array.isArray( responses ) ) {
+                     var successResponses = responses.filter( function( response ) {
+                        return response.status === 200;
+                     } );
+                     data_.releases = successResponses;
+                     return data_;
                   }
-               } );
-         }
+                  else if( responses.status === 200 ) {
+                     data_.releases = [responses];
+                     return data_;
+                  }
+                  else {
+                     data_.repositories = [responses];
+                     return data_;
+                  }
+               }
+            } );
+
+         //var categories = ax.object.deepClone( $scope.model.categories );
+         //var promises = [];
+         //
+         //data.category.forEach( function( category ) {
+         //   data.releases[ category.id ].forEach( function( repository ) {
+         //      if( !( ( repository.releases || {} )._links || {} ).release ){
+         //         return;
+         //      }
+         //      if( Array.isArray( repository.releases._links.release ) ) {
+         //         repository.releases._links.release.forEach( function( release ) {
+         //            promises.push( getChangelog( release.href ) );
+         //         } );
+         //      }
+         //      else {
+         //         promises.push( getChangelog( repository.releases._links.release.href ) );
+         //      }
+         //   } );
+         //} );
+         //
+         //return $q.all( promises ).then( function( responses ) {
+         //   data.changelogs = {};
+         //   responses.forEach( function( response ) {
+         //
+         //      var href = response.href;
+         //
+         //
+         //      data.changelogs[ href ] = response.changelog;
+         //   } );
+         //   return data;
+         //} );
+         //
+         ///////////////////////////////////////////////////////////////////////////////////////////////////////
+         //
+         //function getChangelog( href ) {
+         //   return hal.get( LOCATION + href )
+         //      .on( {
+         //         '200': function( response ) {
+         //            return {
+         //               href: response.data._links.self.href,
+         //               changelog: response.data.changelog
+         //            };
+         //         },
+         //         'xxx': function( response ) {
+         //            return false;
+         //         }
+         //      } );
+         //}
       }
 
       ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
       function createModelAndPublishResource( data ){
          var categories = createModel( data );
-         publishResource( categories );
-
+         if( replaceResource ) {
+            publishResource( categories );
+         }
+         else {
+            updateResource( categories );
+         }
          $scope.model.categories = ax.object.deepClone( categories );
-         return data;
+         return data; //Todo unnecessary?
       }
 
       ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
       function createModel( data ) {
+         return data.category.filter( function( category ) {
+               return data.repositories[ category.id ]._links.repository;
+            } ).map( function( category ) {
+               var repositories = [];
+               data.repository.forEach( function( repository ) {
+                  if( repository.id === category.id ) {
+                     repositories = repository.repositories.map( function( singleRepository ) {
+                        return singleRepository.data;
+                     } );
+                  }
+               } );
+               //if( data.releases ) {
+               //   data.releases[ category.id ].forEach( function( repository ) {
+               //      var releases = [];
+               //      if( Array.isArray( repository.releases._links.release ) ) {
+               //         releases = repository.releases._links.release;
+               //      }
+               //      else if( repository.releases._links.release ) {
+               //         releases.push( repository.releases._links.release );
+               //      }
+               //      else {
+               //         return;
+               //      }
+               //      if( data.changelogs ) {
+               //         releases = releases.map( function( release ) {
+               //            release.changelog = data.changelogs[ release.href ];
+               //            return release;
+               //         } );
+               //      }
+               //      repositories.push( {
+               //         releases: releases,
+               //         title: repository.repository.title,
+               //         pushedAt: repository.repository.pushedAt,
+               //         href: {_links: repository.repository._links}
+               //      } );
+               //   } );
+               //}
+               //else {
+               //   if( Array.isArray( data.repositories[ category.id ]._links.repository ) ) {
+               //      repositories =
+               //      data.repositories[ category.id ]._links.repository.map( function( repository ) {
+               //         repository.title = repository.href;
+               //         return repository;
+               //      } );
+               //   }
+               //}
+
+               return {
+                  title: category.title,
+                  repositories: repositories
+               };
+            } );
+         }
+
+
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+      function createModel_old( data ) {
          return data.category.map( function( category ) {
             var repositories = [];
             if( data.releases ) {
@@ -281,12 +468,24 @@ define( [
       ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
       function publishResource( categories ) {
+         replaceResource = false;
          $scope.eventBus.publish( 'didReplace.' + $scope.features.categories.resource, {
             resource: $scope.features.categories.resource,
             data: categories
          } );
       }
 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+      function updateResource( categories ) {
+         var patch = patterns.json.createPatch( $scope.model.categories, categories );
+         if( patch.length > 0 ) {
+            $scope.eventBus.publish( 'didUpdate.' + $scope.features.categories.resource, {
+               resource: $scope.features.categories.resource,
+               patches: patch
+            } );
+         }
+      }
    }
 
    ///////////////////////////////////////////////////////////////////////////////////////////////////////////

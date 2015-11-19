@@ -7,46 +7,14 @@
 @import url(https://fonts.googleapis.com/css?family=Days+One);
 @import url(https://fonts.googleapis.com/css?family=Michroma);
 
-.changelog-widget .ax-btn-wrapper {
-   margin-bottom: 2rem;
-}
-
-.changelog-widget .ax-first-level {
-   padding: 0;
-}
-
-.changelog-widget .ax-first-level .btn {
-   font-size: 3rem;
-}
-
-.changelog-widget .ax-second-level {
-   margin-left: 0rem;
-}
-
-.changelog-widget ul:nth-of-type(5n + 1){
-   margin-top: 1em;
-}
-
-.changelog-widget .ax-second-level .btn {
-   font-size: 2rem;
-}
-.changelog-widget .ax-third-level {
-   /*margin-bottom: 3rem;*/
-   padding-left: 0;
-}
-.changelog-widget .ax-third-level .btn {
-   font-size: 1.5rem;
-   font-family: sans-serif;
-}
-
 .changelog-widget li {
    list-style-type: none;
-   /*background-color: #ddd;*/
+   background-color: #ddd;
 }
 .changelog-widget button {
-   /*font-family: Michroma, sans-serif;*/
+   font-family: Michroma, sans-serif;
    color: #6b8db0;
-   /*margin: 3px;*/
+   margin: 3px;
 }
 
 .changelog-widget button:hover {
@@ -64,19 +32,21 @@
    text-decoration: none;
 }
 
-.changelog-widget .ax-release-notes {
-   margin-left: 1.5rem;
-   background-color: #eee;
-   margin: 0 -3rem 1rem;
-   padding: 0.5rem 4rem;
+.changelog-widget ul {
+   padding-inline-start: 10px;
+   -moz-padding-start: 10px;
+   -webkit-padding-start: 10px;
 }
 
-.changelog-widget .ax-release-notes ul {
-   margin-left: 0;
-   margin-bottom: 3rem;
-   padding-left: 0;
+.changelog-widget li div {
+   background-color: #F3F3F3;
+   padding-top: 20px;
+   padding-bottom: 20px;
 }
 
+.changelog-widget li div li {
+   background-color: #F3F3F3;
+}
 
 
 .changelog-widget em.changelog-widget-new-feature{
