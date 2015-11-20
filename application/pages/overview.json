@@ -12,8 +12,11 @@
                "categories": {
                   "resource": "categories"
                },
-               "changelog": {
-                  "action": "getChangelog"
+               "repository": {
+                  "action": "getRepository"
+               },
+               "getAll": {
+                  "action": "getAll"
                }
             }
          }
@@ -26,8 +29,11 @@
                "categories": {
                   "resource": "categories"
                },
-               "changelog": {
-                  "action": "getChangelog"
+               "repository": {
+                  "action": "getRepository"
+               },
+               "expandAll": {
+                  "action": "getAll"
                }
             }
          }

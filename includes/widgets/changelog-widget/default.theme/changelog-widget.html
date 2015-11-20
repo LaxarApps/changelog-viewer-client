@@ -1,20 +1,23 @@
-<button class="btn btn-default"
-        type="button"
-        data-ng-click="expandAll( true )"
-        data-ng-show="features.expandAll.enabled"
-        data-ng-bind-html="features.expandAll.button.htmlLabel"
+<div class="ax-btn-wrapper text-right">
+   <button class="btn btn-link"
+           type="button"
+           data-ng-click="expandAll( true )"
+           data-ng-show="features.expandAll.enabled"
+           data-ng-bind-html="features.expandAll.button.htmlLabel"
+      ></button>
+   <button class="btn btn-link"
+           type="button"
+           data-ng-click="expandAll( false )"
+           data-ng-show="features.collapseAll.enabled"
+           data-ng-bind-html="features.collapseAll.button.htmlLabel"
    ></button>
-<button class="btn btn-default"
-        type="button"
-        data-ng-click="expandAll( false )"
-        data-ng-show="features.collapseAll.enabled"
-        data-ng-bind-html="features.collapseAll.button.htmlLabel"
-   ></button>
+</div>
    <div class="changelog-widget-spinner">
 <i class="fa fa-spinner fa-pulse fa-5x"
-   data-ng-show="model.categories.length === 0"></i>
+   data-ng-show="model.categories.length === 0 || model.requestingAll"></i>
    </div>
-<ul data-ng-repeat="( categoryIndex, category) in model.categories">
+<ul class="ax-first-level"
+   data-ng-repeat="( categoryIndex, category) in model.categories">
    <li><button class="btn btn-link"
                type="button"
                data-ng-click="showCategory( categoryIndex )"
@@ -23,16 +26,19 @@
              data-ng-show=" category.repositories.length > 0"
       ></i> {{category.title}}</button>
    </li>
-   <ul data-ng-show="model.visibleMap.categories[ categoryIndex ]"
+   <ul class="ax-second-level"
+       data-ng-show="model.visibleMap.categories[ categoryIndex ]"
        data-ng-repeat="( repositoryIndex, repository) in category.repositories">
       <li><button class="btn btn-link"
                   type="button"
                   data-ng-click="showRepository( repository )"
             ><i data-ng-class="{ 'fa fa-plus-square': !model.visibleMap.repositories[ repository._links.self.href ],
-            'fa fa-minus-square': model.visibleMap.repositories[ repository._links.self.href ] }"
-         ></i>{{repository.title}} {{repository.lastVersion}}</button>
+            'fa fa-minus-square': model.visibleMap.repositories[ repository._links.self.href ] && model.requestedDataMap.repositories[ repository._links.self.href ],
+             'fa fa-spinner fa-pulse': model.visibleMap.repositories[ repository._links.self.href ] && !model.requestedDataMap.repositories[ repository._links.self.href ] }"
+         ></i> {{repository.title}}</button>
       </li>
-      <ul data-ng-show="model.visibleMap.repositories[ repository._links.self.href ]"
+      <ul class="ax-third-level"
+          data-ng-show="model.visibleMap.repositories[ repository._links.self.href ]"
           data-ng-repeat="( releaseIndex, release) in repository.releases">
          <li><button class="btn btn-link"
                      type="button"
@@ -41,7 +47,8 @@
        'fa fa-minus-square': model.visibleMap.releases[ release._links.self.href ] }"
             ></i>
             {{release.title}}</button>
-            <div data-ng-show="model.visibleMap.releases[ release._links.self.href ]"
+            <div class="ax-release-notes"
+                 data-ng-show="model.visibleMap.releases[ release._links.self.href ]"
                  data-ng-bind-html="release.changelog"></div>
          </li>
       </ul>

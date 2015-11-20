@@ -14,6 +14,7 @@
       "properties": {
          "server": {
             "type": "object",
+            "description": "The server which provides the repositories and changelogs",
             "properties": {
                "url": {
                   "type": "string"
@@ -22,14 +23,25 @@
          },
          "categories": {
             "type": "object",
+            "description": "The resource with the repositories and changelogs",
             "properties": {
                "resource": {
                   "type": "string"
                }
             }
          },
-         "changelog": {
+         "repository": {
             "type": "object",
+            "description": "Action to get all releases and changelogs of the requested repository",
+            "properties": {
+               "action": {
+                  "type": "string"
+               }
+            }
+         },
+         "getAll": {
+            "type": "object",
+            "description": "Action to get all releases and changelogs",
             "properties": {
                "action": {
                   "type": "string"

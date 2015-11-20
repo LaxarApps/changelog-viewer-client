@@ -20,13 +20,13 @@
                }
             }
          },
-         "changelog": {
+         "repository": {
             "type": "object",
             "description": "Request the changelogs in markdown of all releases of a repository",
             "properties": {
                "action": {
                   "type": "string",
-                  "description": "Name of the action to request a changelog",
+                  "description": "Name of the action to request all data of a repository",
                   "format": "topic"
                }
             }
@@ -39,6 +39,10 @@
                   "type": "boolean",
                   "description": "Enable this feature",
                   "default": true
+               },
+               "action": {
+                  "type": "string",
+                  "description": "Action to request all releases and changelogs"
                },
                "button": {
                   "type": "object",
