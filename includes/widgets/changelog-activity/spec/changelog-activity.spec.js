@@ -8,9 +8,8 @@ define( [
    'laxar-mocks',
    'angular-mocks',
    'json!./data/changelog_api.json',
-   'json!./data/releases.json',
-   'json!./data/resources.json'
-], function( descriptor, axMocks, ngMocks, changelogApi, releases, resources ) {
+   'json!./data/releases.json'
+], function( descriptor, axMocks, ngMocks, changelogApi, releases ) {
    'use strict';
 
    describe( 'changelog-activity', function() {
@@ -27,7 +26,14 @@ define( [
                'url': 'http://localhost:8007/api'
             },
             'categories': {
-               'resource': 'categories'
+               'resource': 'categories',
+               'include': [ 'Frontend' ]
+            },
+            'repository': {
+               'action': 'getRepository'
+            },
+            'getAll': {
+               'action': 'getAll'
             }
          } );
       } );
@@ -42,6 +48,7 @@ define( [
             $httpBackend = $injector.get( '$httpBackend' );
          } );
          $httpBackend.whenGET( 'http://localhost:8007/api' ).respond( 200, changelogApi[ '/api' ] );
+         $httpBackend.whenGET( '/component-map' ).respond( 200, changelogApi[ '/component-map' ] );
          $httpBackend.whenGET( '/categories' ).respond( 200, changelogApi[ '/categories' ] );
          $httpBackend.whenGET( '/categories/frontend' ).respond( 200, changelogApi[ '/categories/frontend' ] );
          $httpBackend.whenGET( '/categories/backend' ).respond( 200, changelogApi[ '/categories/backend' ] );
@@ -90,42 +97,40 @@ define( [
 
       describe( 'with feature "server" and "categories"', function() {
 
-         xit( 'gets the categories from the backend and publishes them as resource', function() {
+         it( 'gets the categories from the backend and publishes them as resource', function() {
             $httpBackend.flush();
             expect( widgetEventBus.publish )
                .toHaveBeenCalledWith( 'didReplace.categories', {
                   resource: 'categories',
-                  data: resources[ 0 ]
-               } );
-         } );
-
-         /////////////////////////////////////////////////////////////////////////////////////////////////////
-
-         xit( 'gets the list of repositories and updates the "categories" resource ', function() {
-            $httpBackend.flush();
-            expect( widgetEventBus.publish )
-               .toHaveBeenCalledWith( 'didUpdate.categories', {
-                  resource: 'categories',
-                  patches: resources[ 1 ]
-               } );
-         } );
-
-         /////////////////////////////////////////////////////////////////////////////////////////////////////
-
-         // ToDo: Fixing bug in service
-         // https://github.com/LaxarApps/changelog-viewer-server/issues/1
-         xit( 'gets the list of releases and updates the "categories" resource ', function() {
-            $httpBackend.flush();
-            expect( widgetEventBus.publish )
-               .toHaveBeenCalledWith( 'didUpdate.categories', {
-                  resource: 'categories',
-                  patches: resources[ 2 ]
+                  data: jasmine.any( Object )
                } );
          } );
 
       } );
 
       ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+      describe( 'with feature "repository"', function() {
+
+         it( 'subscribes to takeActionRequest event', function() {
+            $httpBackend.flush();
+            expect( axMocks.widget.$scope.eventBus.subscribe )
+               .toHaveBeenCalledWith( 'takeActionRequest.getRepository', jasmine.any( Function ) );
+         } );
+
+      } );
+
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+      describe( 'with feature "getAll"', function() {
+
+         it( 'subscribes to takeActionRequest event', function() {
+            $httpBackend.flush();
+            expect( axMocks.widget.$scope.eventBus.subscribe )
+               .toHaveBeenCalledWith( 'takeActionRequest.getAll', jasmine.any( Function ) );
+         } );
+
+      } );
 
       afterEach( axMocks.tearDown );
 

@@ -42,12 +42,13 @@ define( [
       };
       var requestedAll = false;
       model.requestingAll = false;
+      var initialState = true;
 
       patterns.resources.handlerFor( $scope )
-            .registerResourceFromFeature( 'categories', {
-               onReplace: deleteMap,
-               onUpdateReplace: createModel
-            } );
+         .registerResourceFromFeature( 'categories', {
+            onReplace: deleteMap,
+            onUpdateReplace: createModel
+         } );
 
       ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -77,16 +78,19 @@ define( [
       function showChangelogs( expand ) {
          model.categories.forEach( function( category, categoryIndex ) {
             model.visibleMap.categories[ categoryIndex ] = expand;
-            category.repositories.forEach( function( repository ) {
-               model.visibleMap.repositories[ repository._links.self.href ] = expand;
-               if( expand ) {
-                  model.requestedDataMap.repositories[ repository._links.self.href ] = true;
-               }
-               if( Array.isArray( repository.releases ) ) {
-                  repository.releases.forEach( function( release ) {
-                     model.visibleMap.releases[release._links.self.href] = expand;
-                  } );
-               }
+            category.groups.forEach( function( group, groupIndex ) {
+               model.visibleMap.groups[ groupIndex ] = expand;
+               group.repositories.forEach( function( repository ) {
+                  model.visibleMap.repositories[ repository._links.self.href ] = expand;
+                  if( expand ) {
+                     model.requestedDataMap.repositories[ repository._links.self.href ] = true;
+                  }
+                  if( Array.isArray( repository.releases ) ) {
+                     repository.releases.forEach( function( release ) {
+                        model.visibleMap.releases[release._links.self.href] = expand;
+                     } );
+                  }
+               } );
             } );
          } );
       }
@@ -119,6 +123,12 @@ define( [
 
       ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+      $scope.showGroup = function( groupIndex ) {
+         model.visibleMap.groups[ groupIndex ] = !model.visibleMap.groups[ groupIndex ];
+      };
+
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
       $scope.changelog = function( href ) {
          model.visibleMap.releases[ href ] = !model.visibleMap.releases[ href ];
       };
@@ -128,6 +138,7 @@ define( [
       function deleteMap() {
          model.visibleMap = {
             categories: {},
+            groups: {},
             repositories: {},
             releases: {}
          };
@@ -137,12 +148,16 @@ define( [
 
       function createModel() {
          model.categories = ax.object.deepClone( $scope.resources.categories );
-         model.categories = model.categories.filter( function( category ) {
-            return category && Array.isArray( category.repositories ) && category.repositories.length > 0;
-         } );
-         model.categories = model.categories.map( function( category, index ) {
-            if( Array.isArray( category.repositories ) ) {
-               var repositories = category.repositories.map( function( repository ) {
+         model.categories.forEach( function( category, index ) {
+            var groups = [];
+            if( initialState ) {
+               model.visibleMap.categories[ index ] = true;
+            }
+            category.groups.forEach( function( group, groupIndex ) {
+               if( initialState ) {
+                  model.visibleMap.groups[ groupIndex ] = true;
+               }
+               group.repositories = group.repositories.map( function( repository ) {
                   repository.title = trimTitle( repository.title );
                   if( repository.releases ) {
                      repository.releases = repository.releases.sort( sortByVersion );
@@ -158,16 +173,9 @@ define( [
                   }
                   return repository;
                } );
-
-               return {
-                  title: category.title,
-                  repositories: repositories
-               };
-            }
-            else {
-               return null;
-            }
+            } );
          } );
+         initialState = false;
       }
 
       ////////////////////////////////////////////////////////////////////////////////////////////////////////

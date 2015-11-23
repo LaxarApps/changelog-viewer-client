@@ -23,20 +23,29 @@
    margin-left: 0rem;
 }
 
-.changelog-widget ul:nth-of-type(5n + 1){
-   margin-top: 1em;
+.changelog-widget .ax-second-level .btn {
+   font-size: 2.5rem;
 }
 
-.changelog-widget .ax-second-level .btn {
-   font-size: 2rem;
-}
 .changelog-widget .ax-third-level {
    /*margin-bottom: 3rem;*/
    padding-left: 0;
 }
 .changelog-widget .ax-third-level .btn {
+   font-size: 2rem;
+}
+
+.changelog-widget .ax-fourth-level {
+   /*margin-bottom: 3rem;*/
+   padding-left: 0;
+}
+.changelog-widget .ax-fourth-level .btn {
    font-size: 1.5rem;
    font-family: sans-serif;
+}
+
+.changelog-widget ul:nth-of-type(5n + 1){
+   margin-top: 1em;
 }
 
 .changelog-widget li {

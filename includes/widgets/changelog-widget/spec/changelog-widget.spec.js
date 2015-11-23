@@ -19,6 +19,9 @@ define( [
          axMocks.widget.configure( {
             'categories': {
                'resource': 'categories'
+            },
+            'repository': {
+               'action': 'getRepository'
             }
          } );
       } );

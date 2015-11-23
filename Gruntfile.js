@@ -52,6 +52,11 @@ module.exports = function( grunt ) {
                   context: '/repositories',
                   host: 'jsc',
                   port: 9000
+               },
+               {
+                  context: '/component-map',
+                  host: 'jsc',
+                  port: 9000
                }
             ]
          }

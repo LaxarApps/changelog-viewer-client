@@ -22,6 +22,7 @@ define( [
          categories: []
       };
       var relations = {
+         COMPONENT_MAP: 'component-map',
          CATEGORIES: 'categories',
          CATEGORY: 'category',
          REPOSITORIES: 'repositories',
@@ -30,6 +31,41 @@ define( [
          RELEASE: 'release'
       };
       var replaceResource = false;
+
+      var componentMap = {
+         groups: {},
+         repositories: {}
+      };
+      getComponentMap();
+
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+      function getComponentMap() {
+         return hal.get( LOCATION )
+            .on( {
+               '200': hal.thenFollow( relations.COMPONENT_MAP )
+            } )
+            .on( {
+               '200': function( response ) {
+                  createComponentMap( response.data.origins );
+               }
+            } );
+      }
+
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+      function createComponentMap( origins ) {
+         origins.forEach( function( origin ) {
+            componentMap.groups[ origin.name ] = {};
+            origin.groups.forEach( function( group, groupIndex ) {
+               componentMap.groups[ origin.name][ group.name ] = groupIndex;
+               group.components.forEach( function( component ) {
+                  var id = component.organization + '/' + component.name;
+                  componentMap.repositories[ id ] = group.name;
+               } );
+            } );
+         } );
+      }
 
       ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -69,8 +105,10 @@ define( [
          } );
          var promises = [];
          $scope.model.categories.forEach( function( category ) {
-            category.repositories.forEach( function( repository ) {
-               promises.push( getReleases( repository ).then( getAllChangelogs ) );
+            category.groups.forEach( function( group ) {
+                  group.repositories.forEach( function( repository ) {
+                  promises.push( getReleases( repository ).then( getAllChangelogs ) );
+               } );
             } );
          } );
          $q.all(promises).then( expandModelAndUpdateResource )
@@ -133,7 +171,7 @@ define( [
             return hal.follow( halRepresentation, relations.REPOSITORIES )
                .on( {
                   '200': function( responseRepositories ) {
-                        halRepresentations.repositories[halRepresentation.id] = responseRepositories.data;
+                        halRepresentations.repositories[ halRepresentation.id ] = responseRepositories.data;
                   }
                } );
          }
@@ -158,7 +196,7 @@ define( [
                .on( {
                   'xxx': function( responses ) {
                      var data_ = {
-                        id: categoryId,
+                        categoryId: categoryId,
                         repositories: []
                      };
                      if( Array.isArray( responses ) ) {
@@ -192,7 +230,6 @@ define( [
                if( ( response.data._links || {} ).release ) {
                   return {
                      repository: repository,
-                     //releases: response.data._links.release,
                      halRepresentation: response.data
                   };
                }
@@ -243,19 +280,52 @@ define( [
 
       function createModel( data ) {
          return data.category.filter( function( category ) {
-            return data.repositories[ category.id ]._links.repository;
+            var includeCategory = $scope.features.categories.include.some( function( include ) {
+               return include === category.id;
+            } );
+            return data.repositories[ category.id ]._links.repository && includeCategory;
          } ).map( function( category ) {
+            var groups = {};
             var repositories = [];
             data.repository.forEach( function( repository ) {
-               if( repository.id === category.id ) {
+               if( repository.categoryId === category.id ) {
                   repositories = repository.repositories.map( function( singleRepository ) {
                      return singleRepository.data;
                   } );
                }
             } );
+            repositories.forEach( function( repository ) {
+               var groupId = componentMap.repositories[ repository.organization + '/' + repository.title ];
+               if( groupId ) {
+                  if( !Array.isArray( groups[ groupId ] ) ) {
+                     groups[ groupId ] = [];
+                  }
+                  groups[ groupId ].push( repository );
+               }
+            } );
+            var groupsArray = [];
+            ax.object.forEach( groups, function( repositories, group ) {
+               groupsArray.push( {
+                  name: group,
+                  repositories: repositories
+               } );
+            } );
+
+            groupsArray.sort( function( firstGroup, secondGroup ) {
+               var firstIndex = componentMap.groups[ category.title ][ firstGroup.name ];
+               var secondIndex = componentMap.groups[ category.title ][ secondGroup.name ];
+               if( firstIndex < secondIndex ) {
+                  return -1;
+               }
+               else if( firstIndex > secondIndex ){
+                  return 1;
+               }
+               return 0;
+            } );
+
             return {
                title: category.title,
-               repositories: repositories
+               groups: groupsArray
             };
          } );
       }
@@ -288,14 +358,16 @@ define( [
 
       function addReleases( categories, data ) {
          categories.forEach( function( category ) {
-            category.repositories.forEach( function( repository ) {
-               if( data.repository._links.self.href === repository._links.self.href ) {
-                  repository.releases = data.releases.filter( function( release ) {
-                     return release.status === 200;
-                  } ).map( function( release ) {
-                     return release.data;
-                  } );
-               }
+            category.groups.forEach( function( group ) {
+               group.repositories.forEach( function( repository ) {
+                  if( data.repository._links.self.href === repository._links.self.href ) {
+                     repository.releases = data.releases.filter( function( release ) {
+                        return release.status === 200;
+                     } ).map( function( release ) {
+                        return release.data;
+                     } );
+                  }
+               } );
             } );
          } );
       }
