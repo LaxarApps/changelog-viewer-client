@@ -39,7 +39,7 @@ For installation instruction take a look at the [LaxarJS documentation](https://
 ```
 Use this configuration on a page to get a ChangelogActivity instance.
 
-Its mandatory to configure the server url and the categories with a resource topic and a list with categories which should be included.
+Its mandatory to configure the server url and the feature `categories` with a resource topic and a list with categories which should be included.
 With the `repository.action` the activity provides a list of releases with changelogs of a repository after a request.
 
 For full configuration options refer to the [widget.json](widget.json).

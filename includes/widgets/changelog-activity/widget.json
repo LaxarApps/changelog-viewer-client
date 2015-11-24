@@ -27,7 +27,8 @@
             "description": "The resource with the repositories and changelogs",
             "properties": {
                "resource": {
-                  "type": "string"
+                  "type": "string",
+                  "format": "topic"
                },
                "include": {
                   "type": "array",
@@ -40,7 +41,8 @@
             "description": "Action to get the releases and changelogs of the requested repository",
             "properties": {
                "action": {
-                  "type": "string"
+                  "type": "string",
+                  "format": "topic"
                }
             }
          },
@@ -49,7 +51,8 @@
             "description": "Action to get all releases and changelogs",
             "properties": {
                "action": {
-                  "type": "string"
+                  "type": "string",
+                  "format": "topic"
                }
             }
          }
