@@ -11,11 +11,24 @@
       "properties": {
          "categories": {
             "type": "object",
+            "required": [ "resource" ],
             "description": "A resource with repositories grouped in categories",
             "properties": {
                "resource": {
                   "type": "string",
                   "description": "Name of the data resource with categories.",
+                  "format": "topic"
+               }
+            }
+         },
+         "repository": {
+            "type": "object",
+            "required": [ "action" ],
+            "description": "Request the changelogs in markdown of all releases of a repository",
+            "properties": {
+               "action": {
+                  "type": "string",
+                  "description": "Name of the action to request all data of a repository",
                   "format": "topic"
                }
             }
@@ -27,7 +40,12 @@
                "enabled": {
                   "type": "boolean",
                   "description": "Enable this feature",
-                  "default": true
+                  "default": false
+               },
+               "action": {
+                  "type": "string",
+                  "format": "topic",
+                  "description": "Action to request all releases and changelogs"
                },
                "button": {
                   "type": "object",
@@ -51,7 +69,7 @@
                "enabled": {
                   "type": "boolean",
                   "description": "Enable this feature",
-                  "default": true
+                  "default": false
                },
                "button": {
                   "type": "object",

@@ -37,34 +37,94 @@ define( [
          releases: {}
       };
       model.categories = [];
+      model.requestedDataMap = {
+         repositories: {}
+      };
+      var requestedAll = false;
+      model.requestingAll = false;
+      var initialState = true;
 
       patterns.resources.handlerFor( $scope )
-            .registerResourceFromFeature( 'categories', {
-               onReplace: deleteMap,
-               onUpdateReplace: createModel
-            } );
+         .registerResourceFromFeature( 'categories', {
+            onReplace: deleteMap,
+            onUpdateReplace: createModel
+         } );
+
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
       $scope.expandAll = function( expand) {
+         if( expand === false ) {
+            showChangelogs( false );
+            return;
+         }
+         if( !requestedAll ) {
+            model.requestingAll = true;
+            $scope.eventBus.publish( 'takeActionRequest.' + $scope.features.expandAll.action, {
+               action: $scope.features.expandAll.action
+            } );
+            $scope.eventBus.subscribe( 'didTakeAction.' + $scope.features.expandAll.action, function(){
+               showChangelogs( true );
+               requestedAll = true;
+               model.requestingAll = false;
+            } );
+         }
+         else {
+             showChangelogs( true );
+         }
+      };
+
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+      function showChangelogs( expand ) {
          model.categories.forEach( function( category, categoryIndex ) {
             model.visibleMap.categories[ categoryIndex ] = expand;
-            category.repositories.forEach( function( repository ) {
-               model.visibleMap.repositories[ repository.href._links.self.href ] = expand;
-               repository.releases.forEach( function( release ) {
-                  model.visibleMap.releases[ release.href ] = expand;
+            category.groups.forEach( function( group, groupIndex ) {
+               model.visibleMap.groups[ groupIndex ] = expand;
+               group.repositories.forEach( function( repository ) {
+                  model.visibleMap.repositories[ repository._links.self.href ] = expand;
+                  if( expand ) {
+                     model.requestedDataMap.repositories[ repository._links.self.href ] = true;
+                  }
+                  if( Array.isArray( repository.releases ) ) {
+                     repository.releases.forEach( function( release ) {
+                        model.visibleMap.releases[release._links.self.href] = expand;
+                     } );
+                  }
                } );
             } );
          } );
-      };
+      }
 
       ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
       $scope.showCategory = function( categoryIndex ) {
          model.visibleMap.categories[ categoryIndex ]  = !model.visibleMap.categories[ categoryIndex ];
       };
+
       ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-      $scope.showRepository = function( href ) {
-         model.visibleMap.repositories[ href ] = !model.visibleMap.repositories[ href ];
+      $scope.showRepository = function( repository ) {
+         var href = repository._links.self.href;
+         model.visibleMap.repositories[ href ] = !model.visibleMap.repositories[ href  ];
+         if( model.requestedDataMap.repositories[ href ] === undefined ) {
+            model.requestedDataMap.repositories[ href ] = false;
+         }
+         if( model.visibleMap.repositories[ href  ] && !model.requestedDataMap.repositories[ href ] ) {
+            $scope.eventBus.publish( 'takeActionRequest.' + $scope.features.repository.action, {
+               action: $scope.features.repository.action,
+               repository: repository
+            } );
+            $scope.eventBus.subscribe( 'didTakeAction.' + $scope.features.repository.action, function(){
+               model.requestedDataMap.repositories[ href ] = true;
+            } );
+
+         }
+      };
+
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+      $scope.showGroup = function( groupIndex ) {
+         model.visibleMap.groups[ groupIndex ] = !model.visibleMap.groups[ groupIndex ];
       };
 
       ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -78,6 +138,7 @@ define( [
       function deleteMap() {
          model.visibleMap = {
             categories: {},
+            groups: {},
             repositories: {},
             releases: {}
          };
@@ -87,37 +148,34 @@ define( [
 
       function createModel() {
          model.categories = ax.object.deepClone( $scope.resources.categories );
-         model.categories = model.categories.filter( function( category ) {
-            return category && Array.isArray( category.repositories ) && category.repositories.length > 0;
-         } );
-
-         model.categories = model.categories.map( function( category, index ) {
-            var repositories = category.repositories.filter( function( repository ) {
-                  return  Array.isArray( repository.releases );
-               } )
-               .map( function( repository ) {
-                  repository.releases = repository.releases.sort( sortByVersion );
-                  repository.lastVersion = getLastVersion( repository.releases[ 0 ] );
+         model.categories.forEach( function( category, index ) {
+            var groups = [];
+            if( initialState ) {
+               model.visibleMap.categories[ index ] = true;
+            }
+            category.groups.forEach( function( group, groupIndex ) {
+               if( initialState ) {
+                  model.visibleMap.groups[ groupIndex ] = true;
+               }
+               group.repositories = group.repositories.map( function( repository ) {
                   repository.title = trimTitle( repository.title );
+                  if( repository.releases ) {
+                     repository.releases = repository.releases.sort( sortByVersion );
+                     repository.lastVersion = getLastVersion( repository.releases[0] );
 
-                  repository.releases = repository.releases.filter( function( release ) {
-                     return typeof release === 'object' && release.changelog;
-                  } ).map( function( release ) {
-                     release.changelog = filterChapter( release );
-                     release.changelog = markdownToHtml( release.changelog );
-                     return release;
-                  } );
+                     repository.releases = repository.releases.filter( function( release ) {
+                        return typeof release === 'object' && release.changelog;
+                     } ).map( function( release ) {
+                        release.changelog = filterChapter( release );
+                        release.changelog = markdownToHtml( release.changelog );
+                        return release;
+                     } );
+                  }
                   return repository;
-               } ).filter( function( repository ) {
-                  return repository.releases.length;
                } );
-
-            return {
-               title: category.title,
-               repositories: repositories
-            };
+            } );
          } );
-
+         initialState = false;
       }
 
       ////////////////////////////////////////////////////////////////////////////////////////////////////////
