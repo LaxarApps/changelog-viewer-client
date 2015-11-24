@@ -7,7 +7,7 @@
             "widget": "changelog-activity",
             "features": {
                "server": {
-                  "url": "http://jsc:8007/api"
+                  "url": "http://localhost:8007/api"
                },
                "categories": {
                   "resource": "categoriesFrontend",
@@ -25,7 +25,7 @@
             "widget": "changelog-activity",
             "features": {
                "server": {
-                  "url": "http://jsc:8007/api"
+                  "url": "http://localhost:8007/api"
                },
                "categories": {
                   "resource": "categoriesBackend",
