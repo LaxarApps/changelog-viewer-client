@@ -21,6 +21,12 @@ define( [
       $scope.model = {
          categories: []
       };
+
+      var order = {
+         ALPHABETICAL: 'alphabetical',
+         MAP: 'map'
+      };
+
       var relations = {
          COMPONENT_MAP: 'component-map',
          CATEGORIES: 'categories',
@@ -52,21 +58,27 @@ define( [
             } )
             .on( {
                '200': function( response ) {
-                  createComponentMap( response.data.origins );
+                  createComponentMap( response.data.categories );
                }
             } );
       }
 
       ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-      function createComponentMap( origins ) {
-         origins.forEach( function( origin ) {
-            componentMap.groups[ origin.name ] = {};
-            origin.groups.forEach( function( group, groupIndex ) {
-               componentMap.groups[ origin.name][ group.name ] = groupIndex;
-               group.components.forEach( function( component ) {
+      function createComponentMap( categories ) {
+         categories.forEach( function( category ) {
+            componentMap.groups[ category.name ] = {};
+            category.groups.forEach( function( group, groupIndex ) {
+               componentMap.groups[ category.name][ group.name ] = {
+                  index: groupIndex,
+                  order: group.order
+               };
+               group.components.forEach( function( component, index ) {
                   var id = component.organization + '/' + component.name;
-                  componentMap.repositories[ id ] = group.name;
+                  componentMap.repositories[ id ] = {
+                     index: index,
+                     group: group.name
+                  };
                } );
             } );
          } );
@@ -288,6 +300,7 @@ define( [
             return data.repositories[ category.id ]._links.repository && includeCategory;
          } ).map( function( category ) {
             var groups = {};
+            var orderMap = {};
             var repositories = [];
             data.repository.forEach( function( repository ) {
                if( repository.categoryId === category.id ) {
@@ -296,26 +309,37 @@ define( [
                   } );
                }
             } );
+
             repositories.forEach( function( repository ) {
-               var groupId = componentMap.repositories[ repository.organization + '/' + repository.title ];
-               if( groupId ) {
-                  if( !Array.isArray( groups[ groupId ] ) ) {
-                     groups[ groupId ] = [];
+               var componentMapRepository = componentMap.repositories[ repository.organization + '/' + repository.title];
+               if( componentMapRepository ) {
+                  var groupName = componentMapRepository.group;
+                  if( !Array.isArray( groups[ groupName ] ) ) {
+                     groups[ groupName ] = [];
+                     orderMap[ groupName ] = {};
                   }
-                  groups[ groupId ].push( repository );
+                  orderMap[ groupName ][ repository.title ] = componentMapRepository.index;
+                  groups[ groupName ].push( repository );
+
                }
             } );
+
             var groupsArray = [];
-            ax.object.forEach( groups, function( repositories, group ) {
+            ax.object.forEach( groups, function( repositories, groupName ) {
+               repositories = sortRepositories(
+                  repositories,
+                  componentMap.groups[ category.title ][ groupName ].order,
+                  orderMap[ groupName ]
+               );
                groupsArray.push( {
-                  name: group,
+                  name: groupName,
                   repositories: repositories
                } );
             } );
 
             groupsArray.sort( function( firstGroup, secondGroup ) {
-               var firstIndex = componentMap.groups[ category.title ][ firstGroup.name ];
-               var secondIndex = componentMap.groups[ category.title ][ secondGroup.name ];
+               var firstIndex = componentMap.groups[ category.title ][ firstGroup.name].index;
+               var secondIndex = componentMap.groups[ category.title ][ secondGroup.name].index;
                if( firstIndex < secondIndex ) {
                   return -1;
                }
@@ -330,6 +354,22 @@ define( [
                groups: groupsArray
             };
          } );
+      }
+
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+      function sortRepositories( repositories, orderBy, orderMap ) {
+         if( order.ALPHABETICAL === orderBy ) {
+            repositories = repositories.sort( function( first, second ) {
+               return first.title > second.title ? 1 : -1;
+            } );
+         }
+         else if( order.MAP === orderBy ) {
+            repositories = repositories.sort( function( first, second ) {
+               return orderMap[ first.title ] - orderMap[ second.title ];
+            } );
+         }
+         return repositories;
       }
 
       ////////////////////////////////////////////////////////////////////////////////////////////////////////

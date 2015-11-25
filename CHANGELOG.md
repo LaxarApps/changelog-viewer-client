@@ -2,6 +2,7 @@
 
 ## Last Changes
 
+- [#6](https://github.com/LaxarApps/changelog-viewer-client/issues/6): support different types of sort sequences for the repositories now
 - [#5](https://github.com/LaxarApps/changelog-viewer-client/issues/5): fixed changelog-activity sometimes publishing empty resource
 
 
