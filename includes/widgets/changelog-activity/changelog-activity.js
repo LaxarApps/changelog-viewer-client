@@ -36,7 +36,12 @@ define( [
          groups: {},
          repositories: {}
       };
-      getComponentMap();
+
+      var componentPromise = getComponentMap()
+         .then( getCategories )
+         .then( getEachCategory )
+         .then( getAllRepositories )
+         .then( getRepository );
 
       ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -70,10 +75,7 @@ define( [
       ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
       $scope.eventBus.subscribe( 'beginLifecycleRequest', function( event ) {
-         getCategories()
-            .then( getEachCategory )
-            .then( getAllRepositories )
-            .then( getRepository )
+         componentPromise
             .then( createModelAndPublishResource );
       } );
 
