@@ -2,6 +2,8 @@
 
 ## Last Changes
 
+- [#5](https://github.com/LaxarApps/changelog-viewer-client/issues/5): fixed changelog-activity sometimes publishing empty resource
+
 
 ## v0.2.0
 
