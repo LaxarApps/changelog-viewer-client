@@ -1,102 +1,111 @@
-/**
+@import url(https://fonts.googleapis.com/css?family=Days+One);
+@import url(https://fonts.googleapis.com/css?family=Michroma);
+/*
  * Copyright 2015 aixigo AG
  * Released under the MIT license.
  * http://laxarjs.org/license
  */
-@charset "UTF-8";
-@import url(https://fonts.googleapis.com/css?family=Days+One);
-@import url(https://fonts.googleapis.com/css?family=Michroma);
-
+.changelog-widget .ax-headline-category {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+     -moz-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin-bottom: 4rem;
+  font-size: 3rem;
+}
+.changelog-widget h2 {
+  font-size: 1.5rem;
+  font-family: monospace;
+  text-align: right;
+  border-bottom: 1px dotted #ccc;
+  color: #777;
+}
+.changelog-widget .btn-link {
+  padding: 0;
+}
 .changelog-widget .ax-btn-wrapper {
-   margin-bottom: 2rem;
+  vertical-align: baseline;
 }
-
 .changelog-widget .ax-first-level {
-   padding: 0;
+  padding: 0;
 }
-
 .changelog-widget .ax-first-level .btn {
-   font-size: 3rem;
+  font-size: 2.5rem;
 }
-
 .changelog-widget .ax-second-level {
-   margin-left: 0rem;
+  padding: 0 2rem;
 }
-
 .changelog-widget .ax-second-level .btn {
-   font-size: 2.5rem;
+  font-size: 2rem;
 }
-
+.changelog-widget .ax-second-level:last-child {
+  margin-bottom: 3rem;
+}
 .changelog-widget .ax-third-level {
-   /*margin-bottom: 3rem;*/
-   padding-left: 0;
+  padding: 0;
 }
 .changelog-widget .ax-third-level .btn {
-   font-size: 2rem;
+  font-size: 1.5rem;
+  font-family: monospace;
 }
-
-.changelog-widget .ax-fourth-level {
-   /*margin-bottom: 3rem;*/
-   padding-left: 0;
+.changelog-widget .ax-third-level:last-child {
+  margin-bottom: 2rem;
 }
-.changelog-widget .ax-fourth-level .btn {
-   font-size: 1.5rem;
-   font-family: sans-serif;
+.changelog-widget ul:nth-of-type(5n + 1) {
+  margin-top: 1em;
 }
-
-.changelog-widget ul:nth-of-type(5n + 1){
-   margin-top: 1em;
-}
-
 .changelog-widget li {
-   list-style-type: none;
-   /*background-color: #ddd;*/
+  list-style-type: none;
+  /*background-color: #ddd;*/
 }
 .changelog-widget button {
-   /*font-family: Michroma, sans-serif;*/
-   color: #6b8db0;
-   /*margin: 3px;*/
+  /*font-family: Michroma, sans-serif;*/
+  color: #6b8db0;
+  border-bottom: 1px dotted transparent;
+  /*margin: 3px;*/
 }
-
 .changelog-widget button:hover {
-   color: #6b8db0;
-   text-decoration: none;
+  color: #6b8db0;
+  border-bottom-color: #6b8db0;
+  text-decoration: none;
 }
-
 .changelog-widget button:visited {
-   color: #6b8db0;
-   text-decoration: none;
+  color: #6b8db0;
+  text-decoration: none;
 }
-
 .changelog-widget button:focus {
-   color: #6b8db0;
-   text-decoration: none;
+  color: #6b8db0;
+  text-decoration: none;
 }
-
 .changelog-widget .ax-release-notes {
-   margin-left: 1.5rem;
-   background-color: #eee;
-   margin: 0 -3rem 1rem;
-   padding: 0.5rem 4rem;
+  margin: 1rem -2rem;
+  padding: 1rem 2rem;
+  border-radius: 0 0 120px / 0 0 6px 0;
+  position: relative;
+  min-height: 20px;
+  background-color: #fafafa;
+  border: 1px solid #fafafa;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(128, 128, 128, 0.1) inset;
 }
-
 .changelog-widget .ax-release-notes ul {
-   margin-left: 0;
-   margin-bottom: 3rem;
-   padding-left: 0;
+  margin-left: 0;
+  margin-bottom: 3rem;
+  padding-left: 0;
 }
-
-.changelog-widget em.changelog-widget-new-feature{
-   color: #c7254e;
-   font-style: normal;
+.changelog-widget em.changelog-widget-new-feature {
+  color: #c7254e;
+  font-style: normal;
 }
-
-
 .changelog-widget strong.changelog-widget-breaking-change {
-   color: #c7254e;
+  color: #c7254e;
 }
-
 .changelog-widget .changelog-widget-spinner {
-   text-align: center;
-   color: #ddd;
+  text-align: center;
+  color: #ddd;
 }

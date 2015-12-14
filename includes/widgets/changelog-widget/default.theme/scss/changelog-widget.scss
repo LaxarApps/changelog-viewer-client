@@ -1,0 +1,157 @@
+
+@charset 'UTF-8';
+@import url(https://fonts.googleapis.com/css?family=Days+One);
+@import url(https://fonts.googleapis.com/css?family=Michroma);
+
+/*
+ * Copyright 2015 aixigo AG
+ * Released under the MIT license.
+ * http://laxarjs.org/license
+ */
+
+$color-blue-01: #6b8db0;
+$color-gray-01: #ccc;
+$color-gray-02: #777;
+$color-gray-03: #fafafa;
+$color-red-01: #c7254e;
+
+$second-level-padding: 2rem;
+
+.changelog-widget {
+
+   .ax-headline-category {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 4rem;
+      font-size: 3rem;
+   }
+
+   h2 {
+      font-size: 1.5rem;
+      font-family: monospace;
+      text-align: right;
+      border-bottom: 1px dotted $color-gray-01;
+      color: $color-gray-02;
+   }
+
+   .btn-link {
+      padding: 0;
+   }
+
+   .ax-btn-wrapper {
+      vertical-align: baseline;
+   }
+
+   .ax-first-level {
+      padding: 0;
+      .btn {
+         font-size: 2.5rem;
+      }
+   }
+
+   .ax-second-level {
+      padding: 0 $second-level-padding;
+
+      .btn {
+         font-size: 2rem;
+      }
+
+      &.ax-open {
+         // padding-top: 1rem;
+         // padding-bottom: 1rem;
+         // background: $color-gray-04;
+      }
+
+      &:last-child {
+         margin-bottom: 3rem;
+      }
+   }
+
+   // .ax-second-level-item {
+   //    text-align: right;
+   // }
+
+   .ax-third-level {
+      padding: 0;
+
+      .btn {
+         font-size: 1.5rem;
+         font-family: monospace;
+      }
+
+      &:last-child {
+         margin-bottom: 2rem;
+      }
+   }
+
+   // .ax-third-level-item {
+   //    text-align: left;
+   // }
+
+   ul:nth-of-type(5n + 1){
+      margin-top: 1em;
+   }
+
+   li {
+      list-style-type: none;
+      /*background-color: #ddd;*/
+   }
+
+   button {
+      /*font-family: Michroma, sans-serif;*/
+      color: $color-blue-01;
+      border-bottom: 1px dotted transparent;
+      /*margin: 3px;*/
+   }
+
+   button:hover {
+      color: $color-blue-01;
+      border-bottom-color: $color-blue-01;
+      text-decoration: none;
+   }
+
+      button:visited {
+      color: $color-blue-01;
+      text-decoration: none;
+   }
+
+   button:focus {
+      color: $color-blue-01;
+      text-decoration: none;
+   }
+
+   .ax-release-notes {
+      // background-color: $color-gray-04;
+      margin: 1rem -#{$second-level-padding};
+      padding: 1rem $second-level-padding;
+
+      border-radius: 0 0 120px / 0 0 6px 0;
+      position: relative;
+      min-height: 20px;
+      background-color: $color-gray-03;
+      border: 1px solid $color-gray-03;
+      -webkit-box-shadow: 0 1px 4px rgba(0,0,0,.3),0 0 40px rgba(128,128,128,.1) inset;
+      box-shadow: 0 1px 4px rgba(0,0,0,.3),0 0 40px rgba(128,128,128,.1) inset;
+   }
+
+   .ax-release-notes ul {
+      margin-left: 0;
+      margin-bottom: 3rem;
+      padding-left: 0;
+   }
+
+   em.changelog-widget-new-feature {
+      color: $color-red-01;
+      font-style: normal;
+   }
+
+
+   strong.changelog-widget-breaking-change {
+      color: $color-red-01;
+   }
+
+   .changelog-widget-spinner {
+      text-align: center;
+      color: #ddd;
+   }
+}

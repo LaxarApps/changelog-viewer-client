@@ -1,22 +1,9 @@
-<div class="ax-btn-wrapper text-right">
-   <button class="btn btn-link"
-           type="button"
-           data-ng-click="expandAll( true )"
-           data-ng-show="features.expandAll.enabled"
-           data-ng-bind-html="features.expandAll.button.htmlLabel"
-      ></button>
-   <button class="btn btn-link"
-           type="button"
-           data-ng-click="expandAll( false )"
-           data-ng-show="features.collapseAll.enabled"
-           data-ng-bind-html="features.collapseAll.button.htmlLabel"
-   ></button>
+<div class="changelog-widget-spinner">
+   <i class="fa fa-spinner fa-pulse fa-5x"
+      data-ng-show="model.categories.length === 0 || model.requestingAll"></i>
 </div>
-   <div class="changelog-widget-spinner">
-<i class="fa fa-spinner fa-pulse fa-5x"
-   data-ng-show="model.categories.length === 0 || model.requestingAll"></i>
-   </div>
-<ul class="ax-first-level"
+
+<!-- <ul class="ax-first-level"
    data-ng-repeat="( categoryIndex, category) in model.categories">
    <li><button class="btn btn-link"
                type="button"
@@ -24,45 +11,61 @@
          ><i data-ng-class="{ 'fa fa-plus-square': !model.visibleMap.categories[ categoryIndex ],
          'fa fa-minus-square': model.visibleMap.categories[ categoryIndex ] }"
       ></i> {{category.title}}</button>
-   </li>
+   </li> -->
+<div data-ng-repeat="( categoryIndex, category) in model.categories">
+   <h2 class="ax-headline-category">
+      <span>{{category.title}}</span>
+      <span class="ax-btn-wrapper">
+         <button class="btn btn-link"
+                 type="button"
+                 data-ng-click="expandAll( true )"
+                 data-ng-show="features.expandAll.enabled"
+                 data-ng-bind-html="features.expandAll.button.htmlLabel"
+            ></button>
+         <button class="btn btn-link"
+                 type="button"
+                 data-ng-click="expandAll( false )"
+                 data-ng-show="features.collapseAll.enabled"
+                 data-ng-bind-html="features.collapseAll.button.htmlLabel"
+         ></button>
+      </span>
+   </h2>
 
-   <ul class="ax-second-level"
+   <ul class="ax-first-level"
        data-ng-show="model.visibleMap.categories[ categoryIndex ]"
        data-ng-repeat="( groupIndex, group ) in category.groups">
       <li><button class="btn btn-link"
                   type="button"
                   data-ng-click="showGroup( groupIndex )"
-         ><i data-ng-class="{ 'fa fa-plus-square': !model.visibleMap.groups[ groupIndex ],
-            'fa fa-minus-square': model.visibleMap.groups[ groupIndex ] }"
-         ></i> {{group.name}}</button>
+         >{{group.name}}</button>
       </li>
 
-   <ul class="ax-third-level"
-       data-ng-show="model.visibleMap.groups[ groupIndex ]"
-       data-ng-repeat="( repositoryIndex, repository) in group.repositories">
-      <li><button class="btn btn-link"
-                  type="button"
-                  data-ng-click="showRepository( repository )"
-            ><i data-ng-class="{ 'fa fa-plus-square': !model.visibleMap.repositories[ repository._links.self.href ],
-            'fa fa-minus-square': model.visibleMap.repositories[ repository._links.self.href ] && model.requestedDataMap.repositories[ repository._links.self.href ],
-             'fa fa-spinner fa-pulse': model.visibleMap.repositories[ repository._links.self.href ] && !model.requestedDataMap.repositories[ repository._links.self.href ] }"
-         ></i> {{repository.title}}</button>
-      </li>
-      <ul class="ax-fourth-level"
-          data-ng-show="model.visibleMap.repositories[ repository._links.self.href ]"
-          data-ng-repeat="( releaseIndex, release) in repository.releases">
-         <li><button class="btn btn-link"
+      <ul class="ax-second-level"
+          data-ng-class="{'ax-open': model.visibleMap.repositories[ repository._links.self.href ] }"
+          data-ng-show="model.visibleMap.groups[ groupIndex ]"
+          data-ng-repeat="( repositoryIndex, repository) in group.repositories">
+         <li class="ax-second-level-item">
+            <button class="btn btn-link"
                      type="button"
-                     data-ng-click="changelog( release._links.self.href )"
-            ></i><i data-ng-class="{ 'fa fa-plus-square': !model.visibleMap.releases[ release._links.self.href ],
-       'fa fa-minus-square': model.visibleMap.releases[ release._links.self.href ] }"
-            ></i>
-            {{release.title}}</button>
-            <div class="ax-release-notes"
-                 data-ng-show="model.visibleMap.releases[ release._links.self.href ]"
-                 data-ng-bind-html="release.changelog"></div>
+                     data-ng-click="showRepository( repository )"
+               ><i data-ng-class="{ model.requestedDataMap.repositories[ repository._links.self.href ],
+                'fa fa-spinner fa-pulse': model.visibleMap.repositories[ repository._links.self.href ] && !model.requestedDataMap.repositories[ repository._links.self.href ] }"
+            ></i> {{repository.title}}</button>
          </li>
+         <ul class="ax-third-level"
+             data-ng-show="model.visibleMap.repositories[ repository._links.self.href ]"
+             data-ng-repeat="( releaseIndex, release) in repository.releases">
+            <li class="ax-third-level-item">
+               <button class="btn btn-link"
+                        type="button"
+                        data-ng-click="changelog( release._links.self.href )"
+               >{{release.title}}</button>
+               <div class="ax-release-notes"
+                    data-ng-show="model.visibleMap.releases[ release._links.self.href ]"
+                    data-ng-bind-html="release.changelog"></div>
+            </li>
+         </ul>
       </ul>
    </ul>
-   </ul>
-</ul>
+</div>
+<!-- </ul> -->

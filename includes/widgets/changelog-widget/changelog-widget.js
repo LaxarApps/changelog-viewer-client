@@ -77,7 +77,6 @@ define( [
 
       function showChangelogs( expand ) {
          model.categories.forEach( function( category, categoryIndex ) {
-            model.visibleMap.categories[ categoryIndex ] = expand;
             category.groups.forEach( function( group, groupIndex ) {
                model.visibleMap.groups[ groupIndex ] = expand;
                group.repositories.forEach( function( repository ) {
