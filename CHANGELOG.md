@@ -2,6 +2,8 @@
 
 ## Last Changes
 
+- [#7](https://github.com/LaxarApps/changelog-viewer-client/issues/7): only show categories and groups at initial state
+
 
 ## v0.3.0
 

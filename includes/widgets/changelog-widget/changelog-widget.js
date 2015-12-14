@@ -154,9 +154,6 @@ define( [
                model.visibleMap.categories[ index ] = true;
             }
             category.groups.forEach( function( group, groupIndex ) {
-               if( initialState ) {
-                  model.visibleMap.groups[ groupIndex ] = true;
-               }
                group.repositories = group.repositories.map( function( repository ) {
                   repository.title = trimTitle( repository.title );
                   if( repository.releases ) {
