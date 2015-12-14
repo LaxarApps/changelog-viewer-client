@@ -5,6 +5,9 @@
  * Released under the MIT license.
  * http://laxarjs.org/license
  */
+.changelog-widget {
+  position: relative;
+}
 .changelog-widget .ax-headline-category {
   display: -webkit-box;
   display: -webkit-flex;
@@ -48,7 +51,7 @@
   margin-bottom: 3rem;
 }
 .changelog-widget .ax-third-level {
-  padding: 0;
+  padding: 0 2rem;
 }
 .changelog-widget .ax-third-level .btn {
   font-size: 1.5rem;
@@ -62,13 +65,10 @@
 }
 .changelog-widget li {
   list-style-type: none;
-  /*background-color: #ddd;*/
 }
 .changelog-widget button {
-  /*font-family: Michroma, sans-serif;*/
   color: #6b8db0;
   border-bottom: 1px dotted transparent;
-  /*margin: 3px;*/
 }
 .changelog-widget button:hover {
   color: #6b8db0;
@@ -84,7 +84,7 @@
   text-decoration: none;
 }
 .changelog-widget .ax-release-notes {
-  margin: 1rem -2rem;
+  margin: 1rem -2rem 4rem;
   padding: 1rem 2rem;
   border-radius: 0 0 120px / 0 0 6px 0;
   position: relative;
@@ -98,6 +98,9 @@
   margin-bottom: 3rem;
   padding-left: 0;
 }
+.changelog-widget .ax-release-notes ul ul {
+  margin: 0;
+}
 .changelog-widget em.changelog-widget-new-feature {
   color: #c7254e;
   font-style: normal;
@@ -106,6 +109,8 @@
   color: #c7254e;
 }
 .changelog-widget .changelog-widget-spinner {
+  position: absolute;
+  width: 100%;
   text-align: center;
   color: #ddd;
 }

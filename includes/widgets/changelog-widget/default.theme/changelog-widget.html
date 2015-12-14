@@ -1,17 +1,3 @@
-<div class="changelog-widget-spinner">
-   <i class="fa fa-spinner fa-pulse fa-5x"
-      data-ng-show="model.categories.length === 0 || model.requestingAll"></i>
-</div>
-
-<!-- <ul class="ax-first-level"
-   data-ng-repeat="( categoryIndex, category) in model.categories">
-   <li><button class="btn btn-link"
-               type="button"
-               data-ng-click="showCategory( categoryIndex )"
-         ><i data-ng-class="{ 'fa fa-plus-square': !model.visibleMap.categories[ categoryIndex ],
-         'fa fa-minus-square': model.visibleMap.categories[ categoryIndex ] }"
-      ></i> {{category.title}}</button>
-   </li> -->
 <div data-ng-repeat="( categoryIndex, category) in model.categories">
    <h2 class="ax-headline-category">
       <span>{{category.title}}</span>
@@ -31,6 +17,11 @@
       </span>
    </h2>
 
+   <div class="changelog-widget-spinner">
+      <i class="fa fa-spinner fa-pulse fa-5x"
+         data-ng-show="model.categories.length === 0 || model.requestingAll"></i>
+   </div>
+
    <ul class="ax-first-level"
        data-ng-show="model.visibleMap.categories[ categoryIndex ]"
        data-ng-repeat="( groupIndex, group ) in category.groups">
@@ -47,10 +38,10 @@
          <li class="ax-second-level-item">
             <button class="btn btn-link"
                      type="button"
-                     data-ng-click="showRepository( repository )"
-               ><i data-ng-class="{ model.requestedDataMap.repositories[ repository._links.self.href ],
-                'fa fa-spinner fa-pulse': model.visibleMap.repositories[ repository._links.self.href ] && !model.requestedDataMap.repositories[ repository._links.self.href ] }"
-            ></i> {{repository.title}}</button>
+                     data-ng-click="showRepository( repository )">
+                     {{repository.title}}
+            </button>
+            <i data-ng-class="{ 'fa fa-spinner fa-pulse': model.visibleMap.repositories[ repository._links.self.href ] && !model.requestedDataMap.repositories[ repository._links.self.href ] }"></i>
          </li>
          <ul class="ax-third-level"
              data-ng-show="model.visibleMap.repositories[ repository._links.self.href ]"
@@ -68,4 +59,3 @@
       </ul>
    </ul>
 </div>
-<!-- </ul> -->
