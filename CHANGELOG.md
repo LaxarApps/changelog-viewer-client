@@ -2,6 +2,9 @@
 
 ## Last Changes
 
+
+## v0.5.0
+
 - [#9](https://github.com/LaxarApps/changelog-viewer-client/issues/9): improved styling of list items
 
 
