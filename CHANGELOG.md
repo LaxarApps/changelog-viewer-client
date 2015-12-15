@@ -2,6 +2,8 @@
 
 ## Last Changes
 
+
+## v0.5.1
 - [#10](https://github.com/LaxarApps/changelog-viewer-client/issues/10): improved text indent for github entries
 
 
