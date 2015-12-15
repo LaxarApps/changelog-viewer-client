@@ -1,5 +1,5 @@
 
-@charset 'UTF-8';
+@charset "UTF-8";
 @import url(https://fonts.googleapis.com/css?family=Days+One);
 @import url(https://fonts.googleapis.com/css?family=Michroma);
 
@@ -17,6 +17,7 @@ $color-red-01: #c7254e;
 
 $second-level-padding: 2rem;
 $third-level-padding: 2rem;
+$github-entry-indent: 4rem;
 
 .changelog-widget {
 
@@ -47,6 +48,7 @@ $third-level-padding: 2rem;
 
    .ax-first-level {
       padding: 0;
+
       .btn {
          font-size: 2.5rem;
       }
@@ -64,10 +66,6 @@ $third-level-padding: 2rem;
       }
    }
 
-   // .ax-second-level-item {
-   //    text-align: right;
-   // }
-
    .ax-third-level {
       padding: 0 $third-level-padding;
 
@@ -81,10 +79,6 @@ $third-level-padding: 2rem;
       }
    }
 
-   // .ax-third-level-item {
-   //    text-align: left;
-   // }
-
    ul:nth-of-type(5n + 1){
       margin-top: 1em;
    }
@@ -96,23 +90,19 @@ $third-level-padding: 2rem;
    button {
       color: $color-blue-01;
       border-bottom: 1px dotted transparent;
+
+      &:hover {
+         border-bottom-color: $color-blue-01;
+      }
+
+      &:hover,
+      &:visited,
+      &:focus {
+         color: $color-blue-01;
+         text-decoration: none;
+      }
    }
 
-   button:hover {
-      color: $color-blue-01;
-      border-bottom-color: $color-blue-01;
-      text-decoration: none;
-   }
-
-      button:visited {
-      color: $color-blue-01;
-      text-decoration: none;
-   }
-
-   button:focus {
-      color: $color-blue-01;
-      text-decoration: none;
-   }
 
    .ax-release-notes {
       margin: 1rem -#{$second-level-padding} 4rem;
@@ -125,17 +115,28 @@ $third-level-padding: 2rem;
       border: 1px solid $color-gray-03;
       -webkit-box-shadow: 0 1px 4px rgba(0,0,0,.3),0 0 40px rgba(128,128,128,.1) inset;
       box-shadow: 0 1px 4px rgba(0,0,0,.3),0 0 40px rgba(128,128,128,.1) inset;
-   }
 
-   .ax-release-notes ul {
-      margin-left: 0;
-      margin-bottom: 3rem;
-      padding-left: 0;
+      a {
+         // display: inline-block;
+         font-family: monospace;
+      }
 
-      ul {
-         margin: 0;
+      > ul {
+         margin-left: 0;
+         margin-bottom: 3rem;
+         padding-left: 0;
+
+         > li {
+            text-indent: $github-entry-indent * -1;
+            padding-left: $github-entry-indent;
+         }
+
+         ul {
+            margin: 0;
+         }
       }
    }
+
 
    em.changelog-widget-new-feature {
       color: $color-red-01;
