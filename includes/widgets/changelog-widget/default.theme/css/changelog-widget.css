@@ -71,15 +71,9 @@
   border-bottom: 1px dotted transparent;
 }
 .changelog-widget button:hover {
-  color: #6b8db0;
   border-bottom-color: #6b8db0;
-  text-decoration: none;
 }
-.changelog-widget button:visited {
-  color: #6b8db0;
-  text-decoration: none;
-}
-.changelog-widget button:focus {
+.changelog-widget button:hover, .changelog-widget button:visited, .changelog-widget button:focus {
   color: #6b8db0;
   text-decoration: none;
 }
@@ -93,12 +87,19 @@
   border: 1px solid #fafafa;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(128, 128, 128, 0.1) inset;
 }
-.changelog-widget .ax-release-notes ul {
+.changelog-widget .ax-release-notes a {
+  font-family: monospace;
+}
+.changelog-widget .ax-release-notes > ul {
   margin-left: 0;
   margin-bottom: 3rem;
   padding-left: 0;
 }
-.changelog-widget .ax-release-notes ul ul {
+.changelog-widget .ax-release-notes > ul > li {
+  text-indent: -4rem;
+  padding-left: 4rem;
+}
+.changelog-widget .ax-release-notes > ul ul {
   margin: 0;
 }
 .changelog-widget em.changelog-widget-new-feature {
