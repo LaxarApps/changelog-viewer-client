@@ -16,8 +16,9 @@
             "properties": {
                "resource": {
                   "type": "string",
-                  "description": "Name of the data resource with categories.",
-                  "format": "topic"
+                  "format": "topic",
+                  "axRole": "inlet",
+                  "description": "Name of the data resource with categories."
                }
             }
          },
@@ -28,8 +29,9 @@
             "properties": {
                "action": {
                   "type": "string",
-                  "description": "Name of the action to request all data of a repository",
-                  "format": "topic"
+                  "format": "topic",
+                  "axRole": "outlet",
+                  "description": "Name of the action to request all data of a repository"
                }
             }
          },
@@ -45,6 +47,7 @@
                "action": {
                   "type": "string",
                   "format": "topic",
+                  "axRole": "outlet",
                   "description": "Action to request all releases and changelogs"
                },
                "button": {

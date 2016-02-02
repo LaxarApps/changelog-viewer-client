@@ -28,7 +28,8 @@
             "properties": {
                "resource": {
                   "type": "string",
-                  "format": "topic"
+                  "format": "topic",
+                  "axRole": "outlet"
                },
                "include": {
                   "type": "array",
@@ -42,7 +43,8 @@
             "properties": {
                "action": {
                   "type": "string",
-                  "format": "topic"
+                  "format": "topic",
+                  "axRole": "inlet"
                }
             }
          },
@@ -52,7 +54,8 @@
             "properties": {
                "action": {
                   "type": "string",
-                  "format": "topic"
+                  "format": "topic",
+                  "axRole": "inlet"
                }
             }
          }
