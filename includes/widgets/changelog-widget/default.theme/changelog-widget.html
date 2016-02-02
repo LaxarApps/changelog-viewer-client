@@ -39,7 +39,7 @@
             <button class="btn btn-link"
                      type="button"
                      data-ng-click="showRepository( repository )">
-                     {{repository.title}}
+                     {{repository.title}} {{repository.version}}
             </button>
             <i data-ng-class="{ 'fa fa-spinner fa-pulse': model.visibleMap.repositories[ repository._links.self.href ] && !model.requestedDataMap.repositories[ repository._links.self.href ] }"></i>
          </li>
