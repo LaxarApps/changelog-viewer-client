@@ -2,6 +2,7 @@
 
 ## Last Changes
 
+- [#14](https://github.com/LaxarApps/changelog-viewer-client/issues/14): added last version in headline of each repository
 - [#13](https://github.com/LaxarApps/changelog-viewer-client/issues/13): fixed simultaneous collapsing of groups with same name
 - [#11](https://github.com/LaxarApps/changelog-viewer-client/issues/11): improved styling of fonts and background
 
