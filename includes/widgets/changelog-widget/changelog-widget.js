@@ -34,7 +34,8 @@ define( [
       model.visibleMap = {
          categories: {},
          repositories: {},
-         releases: {}
+         releases: {},
+         category: {}
       };
       model.categories = [];
       model.requestedDataMap = {
@@ -78,7 +79,7 @@ define( [
       function showChangelogs( expand ) {
          model.categories.forEach( function( category, categoryIndex ) {
             category.groups.forEach( function( group, groupIndex ) {
-               model.visibleMap.groups[ groupIndex ] = expand;
+               model.visibleMap.category[ categoryIndex ].groups[ groupIndex ] = expand;
                group.repositories.forEach( function( repository ) {
                   model.visibleMap.repositories[ repository._links.self.href ] = expand;
                   if( expand ) {
@@ -102,6 +103,12 @@ define( [
 
       ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+      $scope.showGroup = function( categoryIndex, groupIndex ) {
+         model.visibleMap.category[ categoryIndex ].groups[ groupIndex ] = !model.visibleMap.category[ categoryIndex].groups[ groupIndex ];
+      };
+
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
       $scope.showRepository = function( repository ) {
          var href = repository._links.self.href;
          model.visibleMap.repositories[ href ] = !model.visibleMap.repositories[ href  ];
@@ -116,14 +123,7 @@ define( [
             $scope.eventBus.subscribe( 'didTakeAction.' + $scope.features.repository.action, function(){
                model.requestedDataMap.repositories[ href ] = true;
             } );
-
          }
-      };
-
-      ////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-      $scope.showGroup = function( groupIndex ) {
-         model.visibleMap.groups[ groupIndex ] = !model.visibleMap.groups[ groupIndex ];
       };
 
       ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -137,7 +137,7 @@ define( [
       function deleteMap() {
          model.visibleMap = {
             categories: {},
-            groups: {},
+            category: {},
             repositories: {},
             releases: {}
          };
@@ -151,8 +151,11 @@ define( [
             var groups = [];
             if( initialState ) {
                model.visibleMap.categories[ index ] = true;
+               model.visibleMap.category[ index ] = { groups: [] };
             }
+
             category.groups.forEach( function( group, groupIndex ) {
+               //model.visibleMap.category[ index ][ groupIndex ] = false;
                group.repositories = group.repositories.map( function( repository ) {
                   repository.title = trimTitle( repository.title );
                   if( repository.releases ) {

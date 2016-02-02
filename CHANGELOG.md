@@ -2,6 +2,9 @@
 
 ## Last Changes
 
+- [#13](https://github.com/LaxarApps/changelog-viewer-client/issues/13): fixed simultaneous collapsing of groups with same name
+- [#11](https://github.com/LaxarApps/changelog-viewer-client/issues/11): improved styling of fonts and background
+
 
 ## v0.5.1
 - [#10](https://github.com/LaxarApps/changelog-viewer-client/issues/10): improved text indent for github entries

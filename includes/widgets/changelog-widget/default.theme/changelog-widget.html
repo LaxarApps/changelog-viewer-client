@@ -27,13 +27,13 @@
        data-ng-repeat="( groupIndex, group ) in category.groups">
       <li><button class="btn btn-link"
                   type="button"
-                  data-ng-click="showGroup( groupIndex )"
+                  data-ng-click="showGroup( categoryIndex, groupIndex )"
          >{{group.name}}</button>
       </li>
 
       <ul class="ax-second-level"
           data-ng-class="{'ax-open': model.visibleMap.repositories[ repository._links.self.href ] }"
-          data-ng-show="model.visibleMap.groups[ groupIndex ]"
+          data-ng-show="model.visibleMap.category[ categoryIndex ].groups[ groupIndex ]"
           data-ng-repeat="( repositoryIndex, repository) in group.repositories">
          <li class="ax-second-level-item">
             <button class="btn btn-link"

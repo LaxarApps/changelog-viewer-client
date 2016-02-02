@@ -10,72 +10,32 @@
                   "url": "http://localhost:8007/api"
                },
                "categories": {
-                  "resource": "categoriesFrontend",
-                  "include": [ "frontend" ]
+                  "resource": "categories",
+                  "include": [ "backend", "frontend" ]
                },
                "repository": {
-                  "action": "getRepositoryFrontend"
+                  "action": "getRepositories"
                },
                "getAll": {
-                  "action": "getAllFrontend"
-               }
-            }
-         },
-         {
-            "widget": "changelog-activity",
-            "features": {
-               "server": {
-                  "url": "http://localhost:8007/api"
-               },
-               "categories": {
-                  "resource": "categoriesBackend",
-                  "include": [ "backend"]
-               },
-               "repository": {
-                  "action": "getRepositoryBackend"
-               },
-               "getAll": {
-                  "action": "getAllBackend"
+                  "action": "getAll"
                }
             }
          }
       ],
 
-      "left": [
+      "content": [
          {
             "widget": "changelog-widget",
             "features": {
                "categories": {
-                  "resource": "categoriesFrontend"
+                  "resource": "categories"
                },
                "repository": {
-                  "action": "getRepositoryFrontend"
+                  "action": "getRepositories"
                },
                "expandAll": {
                   "enabled": true,
-                  "action": "getAllFrontend"
-               },
-               "collapseAll": {
-                  "enabled": true
-               }
-            }
-         }
-      ],
-
-
-      "right": [
-         {
-            "widget": "changelog-widget",
-            "features": {
-               "categories": {
-                  "resource": "categoriesBackend"
-               },
-               "repository": {
-                  "action": "getRepositoryBackend"
-               },
-               "expandAll": {
-                  "enabled": true,
-                  "action": "getAllBackend"
+                  "action": "getAll"
                },
                "collapseAll": {
                   "enabled": true
@@ -83,6 +43,5 @@
             }
          }
       ]
-
    }
 }

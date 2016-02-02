@@ -1,7 +1,6 @@
 
 @charset "UTF-8";
-@import url(https://fonts.googleapis.com/css?family=Days+One);
-@import url(https://fonts.googleapis.com/css?family=Michroma);
+@import url(https://fonts.googleapis.com/css?family=Raleway:200,300,400|Domine:400,700&subset=latin,latin-ext);
 
 /*
  * Copyright 2015 aixigo AG
@@ -9,9 +8,9 @@
  * http://laxarjs.org/license
  */
 
-$color-blue-01: #6b8db0;
+$color-blue-01: #6B8DB0;
 $color-gray-01: #ccc;
-$color-gray-02: #777;
+$color-gray-02: #828384;
 $color-gray-03: #fafafa;
 $color-red-01: #c7254e;
 
@@ -22,18 +21,19 @@ $github-entry-indent: 4rem;
 .changelog-widget {
 
    position: relative;
+   font-family: 'Raleway', Helvetica, sans-serif;
 
    .ax-headline-category {
       display: flex;
       justify-content: space-between;
-      margin-bottom: 4rem;
+      margin-bottom: 2rem;
+      margin-top: 4rem;
       font-size: 3rem;
    }
 
    h2 {
-      font-size: 1.5rem;
-      font-family: monospace;
-      text-align: right;
+      font-size: 1.6rem;
+      text-align: left;
       border-bottom: 1px dotted $color-gray-01;
       color: $color-gray-02;
    }
@@ -50,7 +50,8 @@ $github-entry-indent: 4rem;
       padding: 0;
 
       .btn {
-         font-size: 2.5rem;
+         font-size: 2.6rem;
+         font-weight: 200;
       }
    }
 
@@ -58,7 +59,8 @@ $github-entry-indent: 4rem;
       padding: 0 $second-level-padding;
 
       .btn {
-         font-size: 2rem;
+         font-size: 2.4rem;
+         font-weight: 200;
       }
 
       &:last-child {
@@ -67,11 +69,11 @@ $github-entry-indent: 4rem;
    }
 
    .ax-third-level {
-      padding: 0 $third-level-padding;
+      padding: 0.2rem $third-level-padding 0 2rem;
 
       .btn {
-         font-size: 1.5rem;
-         font-family: monospace;
+         font-size: 1.6rem;
+         font-family: 'Domine', serif;
       }
 
       &:last-child {
@@ -79,8 +81,8 @@ $github-entry-indent: 4rem;
       }
    }
 
-   ul:nth-of-type(5n + 1){
-      margin-top: 1em;
+   ul:nth-of-type(5n){
+      margin-top: 0.8em;
    }
 
    li {
@@ -88,37 +90,38 @@ $github-entry-indent: 4rem;
    }
 
    button {
-      color: $color-blue-01;
+      color: $color-gray-02;
       border-bottom: 1px dotted transparent;
 
       &:hover {
-         border-bottom-color: $color-blue-01;
+         border-bottom-color: $color-gray-02;
       }
 
       &:hover,
       &:visited,
       &:focus {
-         color: $color-blue-01;
+         color: $color-gray-02;
          text-decoration: none;
       }
    }
 
 
    .ax-release-notes {
-      margin: 1rem -#{$second-level-padding} 4rem;
-      padding: 1rem $second-level-padding;
+      margin: 0 -#{$second-level-padding} 0 20px;
+      padding: 0.6rem $second-level-padding 0 0;
+      font-size: 1.6rem;
+      font-family: 'Domine', serif;
 
-      border-radius: 0 0 120px / 0 0 6px 0;
       position: relative;
       min-height: 20px;
-      background-color: $color-gray-03;
-      border: 1px solid $color-gray-03;
-      -webkit-box-shadow: 0 1px 4px rgba(0,0,0,.3),0 0 40px rgba(128,128,128,.1) inset;
-      box-shadow: 0 1px 4px rgba(0,0,0,.3),0 0 40px rgba(128,128,128,.1) inset;
+
+      h2 {
+         margin-top: 0;
+      }
 
       a {
          // display: inline-block;
-         font-family: monospace;
+         color: $color-blue-01;
       }
 
       > ul {
@@ -129,6 +132,7 @@ $github-entry-indent: 4rem;
          > li {
             text-indent: $github-entry-indent * -1;
             padding-left: $github-entry-indent;
+            margin-bottom: 0.6rem;
          }
 
          ul {
