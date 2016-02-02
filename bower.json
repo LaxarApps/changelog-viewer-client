@@ -4,9 +4,9 @@
   "description": "",
   "license": "MIT",
   "dependencies": {
-    "laxar": "~1.1.0-beta.0",
+    "laxar": "~1.1.0",
     "laxar-uikit": "~1.1.0",
-    "laxar-patterns": "~1.1.0-alpha.2",
+    "laxar-patterns": "~1.1.0",
     "marked": "chjj/marked#^0.3.x",
     "semver": "~4.3.4",
     "iframe-resizer": "3.5.1"

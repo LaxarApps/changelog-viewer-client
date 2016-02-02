@@ -13,6 +13,6 @@
    "devDependencies": {
       "grunt": "~0.4.4",
       "grunt-connect-proxy": "^0.2.0",
-      "grunt-laxar": "~1.1.0-alpha.4"
+      "grunt-laxar": "~1.1.0"
    }
 }

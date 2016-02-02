@@ -1,5 +1,5 @@
-@import url(https://fonts.googleapis.com/css?family=Days+One);
-@import url(https://fonts.googleapis.com/css?family=Michroma);
+@import url(https://fonts.googleapis.com/css?family=Raleway:200,300,400|Domine:400,700&subset=latin,latin-ext);
+
 /*
  * Copyright 2015 aixigo AG
  * Released under the MIT license.
@@ -7,6 +7,7 @@
  */
 .changelog-widget {
   position: relative;
+  font-family: 'Raleway', Helvetica, sans-serif;
 }
 .changelog-widget .ax-headline-category {
   display: -webkit-box;
@@ -19,15 +20,15 @@
      -moz-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  margin-bottom: 4rem;
+  margin-bottom: 2rem;
+  margin-top: 4rem;
   font-size: 3rem;
 }
 .changelog-widget h2 {
-  font-size: 1.5rem;
-  font-family: monospace;
-  text-align: right;
+  font-size: 1.6rem;
+  text-align: left;
   border-bottom: 1px dotted #ccc;
-  color: #777;
+  color: #828384;
 }
 .changelog-widget .btn-link {
   padding: 0;
@@ -39,56 +40,61 @@
   padding: 0;
 }
 .changelog-widget .ax-first-level .btn {
-  font-size: 2.5rem;
+  font-size: 2.6rem;
+  font-weight: 200;
 }
 .changelog-widget .ax-second-level {
   padding: 0 2rem;
 }
 .changelog-widget .ax-second-level .btn {
-  font-size: 2rem;
+  font-size: 2.4rem;
+  font-weight: 200;
 }
 .changelog-widget .ax-second-level:last-child {
   margin-bottom: 3rem;
 }
 .changelog-widget .ax-third-level {
-  padding: 0 2rem;
+  padding: 0.2rem 2rem 0 2rem;
 }
 .changelog-widget .ax-third-level .btn {
-  font-size: 1.5rem;
-  font-family: monospace;
+  font-family: 'Domine', serif;
+  font-size: 1.6rem;
 }
 .changelog-widget .ax-third-level:last-child {
   margin-bottom: 2rem;
 }
-.changelog-widget ul:nth-of-type(5n + 1) {
-  margin-top: 1em;
+.changelog-widget ul:nth-of-type(5n) {
+  margin-top: 0.8em;
 }
 .changelog-widget li {
   list-style-type: none;
 }
 .changelog-widget button {
-  color: #6b8db0;
+  color: #828384;
   border-bottom: 1px dotted transparent;
 }
 .changelog-widget button:hover {
-  border-bottom-color: #6b8db0;
+  border-bottom-color: #828384;;
 }
 .changelog-widget button:hover, .changelog-widget button:visited, .changelog-widget button:focus {
-  color: #6b8db0;
+  color: #828384;
   text-decoration: none;
 }
 .changelog-widget .ax-release-notes {
-  margin: 1rem -2rem 4rem;
-  padding: 1rem 2rem;
-  border-radius: 0 0 120px / 0 0 6px 0;
+  margin: 0 -2rem 0 20px;
+  padding: 0.6rem 2rem 0 0;
   position: relative;
   min-height: 20px;
-  background-color: #fafafa;
-  border: 1px solid #fafafa;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(128, 128, 128, 0.1) inset;
+  font-size: 1.6rem;
+  font-family: 'Domine', serif;
 }
+
+.changelog-widget .ax-release-notes h2{
+  margin-top: 0;
+}
+
 .changelog-widget .ax-release-notes a {
-  font-family: monospace;
+  color: #6B8DB0;
 }
 .changelog-widget .ax-release-notes > ul {
   margin-left: 0;
@@ -98,6 +104,7 @@
 .changelog-widget .ax-release-notes > ul > li {
   text-indent: -4rem;
   padding-left: 4rem;
+  margin-bottom: 0.6rem;
 }
 .changelog-widget .ax-release-notes > ul ul {
   margin: 0;
@@ -113,5 +120,5 @@
   position: absolute;
   width: 100%;
   text-align: center;
-  color: #ddd;
+  color: #828384;
 }
