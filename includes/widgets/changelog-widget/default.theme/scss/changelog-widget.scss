@@ -1,9 +1,7 @@
 
 @charset "UTF-8";
-@import url(https://fonts.googleapis.com/css?family=Raleway:200,300,400|Domine:400,700&subset=latin,latin-ext);
-
 /*
- * Copyright 2015 aixigo AG
+ * Copyright 2016 aixigo AG
  * Released under the MIT license.
  * http://laxarjs.org/license
  */
@@ -66,6 +64,10 @@ $github-entry-indent: 4rem;
       &:last-child {
          margin-bottom: 3rem;
       }
+   }
+
+   .changelog-widget-most-recent-version {
+      font-size: 1.6rem;
    }
 
    .ax-third-level {
@@ -157,5 +159,9 @@ $github-entry-indent: 4rem;
       width: 100%;
       text-align: center;
       color: #ddd;
+   }
+
+   .changelog-widget-load-font {
+      opacity: 0;
    }
 }

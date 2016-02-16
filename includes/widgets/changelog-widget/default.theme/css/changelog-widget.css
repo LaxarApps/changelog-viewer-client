@@ -1,7 +1,5 @@
-@import url(https://fonts.googleapis.com/css?family=Raleway:200,300,400|Domine:400,700&subset=latin,latin-ext);
-
 /*
- * Copyright 2015 aixigo AG
+ * Copyright 2016 aixigo AG
  * Released under the MIT license.
  * http://laxarjs.org/license
  */
@@ -53,6 +51,11 @@
 .changelog-widget .ax-second-level:last-child {
   margin-bottom: 3rem;
 }
+
+.changelog-widget .changelog-widget-most-recent-version {
+  font-size: 1.6rem;
+}
+
 .changelog-widget .ax-third-level {
   padding: 0.2rem 2rem 0 2rem;
 }
@@ -121,4 +124,8 @@
   width: 100%;
   text-align: center;
   color: #828384;
+}
+
+.changelog-widget .changelog-widget-load-font {
+  opacity: 0;
 }
