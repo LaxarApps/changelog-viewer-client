@@ -2,6 +2,9 @@
 
 ## Last Changes
 
+
+## v0.6.0
+
 - [#12](https://github.com/LaxarApps/changelog-viewer-client/issues/12): updated dependencies and added laxar-developer-tools-widget
 - [#14](https://github.com/LaxarApps/changelog-viewer-client/issues/14): added last version in headline of each repository
 - [#13](https://github.com/LaxarApps/changelog-viewer-client/issues/13): fixed simultaneous collapsing of groups with same name
@@ -9,6 +12,7 @@
 
 
 ## v0.5.1
+
 - [#10](https://github.com/LaxarApps/changelog-viewer-client/issues/10): improved text indent for github entries
 
 
