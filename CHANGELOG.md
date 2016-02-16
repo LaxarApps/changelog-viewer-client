@@ -2,6 +2,9 @@
 
 ## Last Changes
 
+
+## v0.6.1
+
 - [#17](https://github.com/LaxarApps/changelog-viewer-client/issues/17): fixed missing font in productive mode
 - [#16](https://github.com/LaxarApps/changelog-viewer-client/issues/16): fixed delayed loading of font for spinner
 - [#15](https://github.com/LaxarApps/changelog-viewer-client/issues/15): fixed expand and collapse button
