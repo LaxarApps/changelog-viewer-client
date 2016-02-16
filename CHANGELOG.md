@@ -2,6 +2,8 @@
 
 ## Last Changes
 
+- [#15](https://github.com/LaxarApps/changelog-viewer-client/issues/15): fixed expand and collapse button
+
 
 ## v0.6.0
 
