@@ -1,6 +1,7 @@
 <div data-ng-repeat="( categoryIndex, category) in model.categories">
    <h2 class="ax-headline-category">
       <span>{{category.title}}</span>
+      <i class="fa fa-cube changelog-widget-load-font"></i>
       <span class="ax-btn-wrapper">
          <button class="btn btn-link"
                  type="button"
@@ -39,7 +40,7 @@
             <button class="btn btn-link"
                      type="button"
                      data-ng-click="showRepository( repository )">
-                     {{repository.title}} {{repository.version}}
+                     {{repository.title}} <span class="changelog-widget-most-recent-version">{{repository.mostRecentVersion}}</span>
             </button>
             <i data-ng-class="{ 'fa fa-spinner fa-pulse': model.visibleMap.repositories[ repository._links.self.href ] && !model.requestedDataMap.repositories[ repository._links.self.href ] }"></i>
          </li>
@@ -59,3 +60,4 @@
       </ul>
    </ul>
 </div>
+
