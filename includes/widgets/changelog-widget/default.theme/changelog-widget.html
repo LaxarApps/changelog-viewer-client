@@ -1,7 +1,11 @@
+<div class="changelog-widget-spinner">
+   <i class="fa fa-spinner fa-pulse fa-5x"
+      data-ng-hide="model.initialized"></i>
+</div>
+
 <div data-ng-repeat="( categoryIndex, category) in model.categories">
    <h2 class="ax-headline-category">
       <span>{{category.title}}</span>
-      <i class="fa fa-cube changelog-widget-load-font"></i>
       <span class="ax-btn-wrapper">
          <button class="btn btn-link"
                  type="button"

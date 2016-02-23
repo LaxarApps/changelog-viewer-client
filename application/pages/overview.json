@@ -7,35 +7,14 @@
             "widget": "changelog-activity",
             "features": {
                "server": {
-                  "url": "http://localhost:8007/api"
+                  "url": "/api"
                },
                "categories": {
-                  "resource": "backendCategories",
-                  "include": [ "backend" ]
+                  "resource": "categories",
+                  "include": [ "backend", "frontend"  ]
                },
                "repository": {
-                  "action": "getBackendRepositories"
-               },
-               "getAll": {
-                  "action": "getAllBackend"
-               }
-            }
-         },
-         {
-            "widget": "changelog-activity",
-            "features": {
-               "server": {
-                  "url": "http://localhost:8007/api"
-               },
-               "categories": {
-                  "resource": "frontendCategories",
-                  "include": [ "frontend" ]
-               },
-               "repository": {
-                  "action": "getFrontendRepositories"
-               },
-               "getAll": {
-                  "action": "getAllFrontend"
+                  "action": "getRepositories"
                }
             }
          }
@@ -46,35 +25,10 @@
             "widget": "changelog-widget",
             "features": {
                "categories": {
-                  "resource": "backendCategories"
+                  "resource": "categories"
                },
                "repository": {
-                  "action": "getBackendRepositories"
-               },
-               "expandAll": {
-                  "enabled": true,
-                  "action": "getAllBackend"
-               },
-               "collapseAll": {
-                  "enabled": true
-               }
-            }
-         },
-         {
-            "widget": "changelog-widget",
-            "features": {
-               "categories": {
-                  "resource": "frontendCategories"
-               },
-               "repository": {
-                  "action": "getFrontendRepositories"
-               },
-               "expandAll": {
-                  "enabled": true,
-                  "action": "getAllFrontend"
-               },
-               "collapseAll": {
-                  "enabled": true
+                  "action": "getRepositories"
                }
             }
          },

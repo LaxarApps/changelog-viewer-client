@@ -2,6 +2,9 @@
 
 ## Last Changes
 
+
+- [#19](https://github.com/LaxarApps/changelog-viewer-client/issues/19): added spinner at initial start
+- [#18](https://github.com/LaxarApps/changelog-viewer-client/issues/18): better font for headlines with version number
 - [#17](https://github.com/LaxarApps/changelog-viewer-client/issues/17): fixed missing font in productive mode
 - [#16](https://github.com/LaxarApps/changelog-viewer-client/issues/16): fixed delayed loading of font for spinner
 - [#15](https://github.com/LaxarApps/changelog-viewer-client/issues/15): fixed expand and collapse button

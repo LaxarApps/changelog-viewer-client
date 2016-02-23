@@ -23,6 +23,9 @@ module.exports = function( grunt ) {
                develop: serverPort,
                test: testPort,
                livereload: liveReloadPort
+            },
+            userTasks: {
+               'build-flow': [ 'laxar-compass-flow' ]
             }
          }
       },
@@ -68,6 +71,7 @@ module.exports = function( grunt ) {
 
    grunt.loadNpmTasks( 'grunt-laxar' );
    grunt.loadNpmTasks( 'grunt-connect-proxy' );
+   grunt.loadNpmTasks( 'grunt-laxar-compass' );
 
    // basic aliases
    grunt.registerTask( 'test', [ 'laxar-test' ] );

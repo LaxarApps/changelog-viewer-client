@@ -43,11 +43,17 @@ define( [
          repositories: {}
       };
 
-      var componentPromise = getComponentMap()
-         .then( getCategories )
-         .then( getEachCategory )
-         .then( getAllRepositories )
-         .then( getRepository );
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+      $scope.eventBus.subscribe( 'beginLifecycleRequest', function( event ) {
+         var componentPromise = getComponentMap()
+            .then( getCategories )
+            .then( getEachCategory )
+            .then( getAllRepositories )
+            .then( getRepository );
+         componentPromise
+            .then( createModelAndPublishResource );
+      } );
 
       ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -83,13 +89,6 @@ define( [
             } );
          } );
       }
-
-      ////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-      $scope.eventBus.subscribe( 'beginLifecycleRequest', function( event ) {
-         componentPromise
-            .then( createModelAndPublishResource );
-      } );
 
       ////////////////////////////////////////////////////////////////////////////////////////////////////////
 

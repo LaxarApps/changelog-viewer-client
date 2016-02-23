@@ -19,7 +19,7 @@ $github-entry-indent: 4rem;
 .changelog-widget {
 
    position: relative;
-   font-family: 'Raleway', Helvetica, sans-serif;
+   font-family: 'Lato', Helvetica, sans-serif;
 
    .ax-headline-category {
       display: flex;
@@ -27,6 +27,7 @@ $github-entry-indent: 4rem;
       margin-bottom: 2rem;
       margin-top: 4rem;
       font-size: 3rem;
+      font-weight: 300;
    }
 
    h2 {
@@ -57,7 +58,7 @@ $github-entry-indent: 4rem;
       padding: 0 $second-level-padding;
 
       .btn {
-         font-size: 2.4rem;
+         font-size: 2.2rem;
          font-weight: 200;
       }
 
@@ -67,18 +68,20 @@ $github-entry-indent: 4rem;
    }
 
    .changelog-widget-most-recent-version {
-      font-size: 1.6rem;
+      font-size: 2.2rem;
    }
 
    .ax-third-level {
       padding: 0.2rem $third-level-padding 0 2rem;
 
-      .btn {
-         font-size: 1.6rem;
-         font-family: 'Domine', serif;
+      .ax-third-level-item {
+         .btn {
+            font-family: 'Domine', serif;
+            font-size: 1.6rem;
+         }
       }
 
-      &:last-child {
+       &:last-child {
          margin-bottom: 2rem;
       }
    }
@@ -157,8 +160,9 @@ $github-entry-indent: 4rem;
    .changelog-widget-spinner {
       position: absolute;
       width: 100%;
+      top: 6rem;
       text-align: center;
-      color: #ddd;
+      color: $color-gray-02;
    }
 
    .changelog-widget-load-font {

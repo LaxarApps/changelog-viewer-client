@@ -31,6 +31,8 @@ define( [
       $scope.resources = {};
       var model = $scope.model;
 
+      model.initialized = false;
+
       model.visibleMap = {
          categories: {},
          repositories: {},
@@ -44,6 +46,8 @@ define( [
       var requestedAll = false;
       model.requestingAll = false;
       var initialState = true;
+
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
       patterns.resources.handlerFor( $scope )
          .registerResourceFromFeature( 'categories', {
@@ -135,6 +139,7 @@ define( [
       ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
       function deleteMap() {
+         model.initialized = true;
          model.visibleMap = {
             categories: {},
             category: {},
